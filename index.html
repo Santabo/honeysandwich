@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Honey Sandwich - AI Generated Music">
+  <title>Honey Sandwich - AI Music</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#1e1e1e; color:#fff; text-align:center; margin:0; }
+    header { background:#EBA937; padding:20px; font-size:32px; font-weight:600; }
+    .container { max-width:900px; margin:20px auto; padding:30px; background:#2a2a2a; border-radius:12px; }
+    h2 { color:#EBA937; }
+    .music-list { list-style:none; padding:0; }
+    .music-list li { display:flex; margin:20px 0; padding:20px; background:#3a3a3a; border-radius:12px; align-items:center; }
+    .music-list img { 
+      width:160px; 
+      height:160px; 
+      border-radius:50%; 
+      margin-right:20px; 
+      object-fit:contain; 
+      background:#111; 
+      transform: rotate(0deg);
+    }
+    .music-info { text-align:left; flex-grow:1; }
+    .music-info h3 { color:#EBA937; margin:10px 0; }
+    .music-info audio { width:100%; max-width:320px; margin:15px 0; }
+    .license-box {
+      background:#444;
+      padding:12px;
+      border-radius:8px;
+      font-size:14px;
+      color:#ddd;
+      margin-top:10px;
+    }
+    .license-box a { color:#EBA937; text-decoration:none; }
+    .license-box a:hover { text-decoration:underline; }
+    .copyright { margin:30px 0; font-size:14px; color:#bbb; }
+    @media(max-width:768px){
+      .music-list li{flex-direction:column; text-align:center;}
+      .music-list img{margin:0 0 15px 0;}
+    }
+  </style>
+</head>
+<body>
+  <header>Honey Sandwich - AI Generated Music</header>
+  <div class="container">
+    <h2>Featured Music</h2>
+    <ul id="music-list" class="music-list"><li>Loading music…</li></ul>
+  </div>
+  <div class="copyright">
+    © 2025 Honey Sandwich. Please contact me on Discord for permission: 
+    <a href="https://discord.com/users/789872551731527690" target="_blank">Discord Link</a>.
+  </div>
+
+  <script>
+    async function loadRSS() {
+      const feedURL = "https://feeds.soundcloud.com/users/soundcloud:users:1514835736/sounds.rss";
+      const api = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedURL);
+
+      try {
+        const res = await fetch(api);
+        const json = await res.json();
+
+        const list = document.getElementById("music-list");
+        list.innerHTML = "";
+
+        if (!json.items) {
+          list.innerHTML = "<li>⚠️ No music found.</li>";
+          console.log("RSS2JSON response:", json);
+          return;
+        }
+
+        json.items.forEach(item => {
+          const title = item.title;
+          const audioUrl = item.enclosure.link || "";
+          const image = item.enclosure.thumbnail || item.thumbnail || "https://via.placeholder.com/160";
+
+          let copyrightText;
+          if (title.includes("Forever") && title.includes("EspiDev")) {
+            copyrightText = `
+              <div class="license-box">
+                This is a cover of EspiDev's song 
+                <em>'Forever'</em> (<a href="https://www.newgrounds.com/audio/listen/1387465" target="_blank">Original on Newgrounds</a>)<br><br>
+                Licensed under Creative Commons:<br>
+                You are free to copy, distribute, and transmit this work under the following conditions:<br>
+                <strong>Attribution:</strong> You must give credit to the artist.<br><br>
+                <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank">Commons Deed</a> | 
+                <a href="https://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Legal Code</a><br><br>
+                * Please consider sharing revenue!
+              </div>
+            `;
+          } else {
+            copyrightText = `<p>© 2025 Honey Sandwich. All rights reserved.</p>`;
+          }
+
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <img src="${image}" alt="Cover for ${title}">
+            <div class="music-info">
+              <h3>${title}</h3>
+              <audio controls>
+                <source src="${audioUrl}" type="audio/mpeg">
+                Your browser does not support audio.
+              </audio>
+              ${copyrightText}
+            </div>
+          `;
+          list.appendChild(li);
+
+          // Rotation system
+          const audio = li.querySelector("audio");
+          const cover = li.querySelector("img");
+          let angle = 0;
+          let spinning = false;
+
+          function rotate() {
+            if (spinning) {
+              angle = (angle + 0.09) % 360; // ~20s per rotation
+              cover.style.transform = `rotate(${angle}deg)`;
+              requestAnimationFrame(rotate);
+            }
+          }
+
+          audio.addEventListener("play", () => {
+            // Pause all other audios
+            document.querySelectorAll("audio").forEach(a => {
+              if (a !== audio) a.pause();
+            });
+
+            // Stop other covers spinning
+            document.querySelectorAll(".music-list li").forEach(otherLi => {
+              if (otherLi !== li) {
+                const otherAudio = otherLi.querySelector("audio");
+                const otherImg = otherLi.querySelector("img");
+                if (otherAudio.paused) {
+                  otherLi.spinning = false;
+                }
+              }
+            });
+
+            spinning = true;
+            rotate();
+          });
+
+          audio.addEventListener("pause", () => {
+            spinning = false; // stops loop but keeps angle
+          });
+
+          audio.addEventListener("ended", () => {
+            spinning = false;
+          });
+        });
+
+      } catch (err) {
+        console.error("Error loading feed:", err);
+        document.getElementById("music-list").innerHTML = "<li>Failed to load music.</li>";
+      }
+    }
+
+    loadRSS();
+  </script>
+</body>
+</html>
