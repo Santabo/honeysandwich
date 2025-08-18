@@ -12,13 +12,13 @@
     h2 { color:#EBA937; }
     .music-list { list-style:none; padding:0; }
     .music-list li { display:flex; margin:20px 0; padding:20px; background:#3a3a3a; border-radius:12px; align-items:center; }
-    .music-list img { 
-      width:160px; 
-      height:160px; 
-      border-radius:50%; 
-      margin-right:20px; 
-      object-fit:cover; 
-      background:#111; 
+    .music-list img {
+      width:160px;
+      height:160px;
+      border-radius:50%;
+      margin-right:20px;
+      object-fit:cover;
+      background:#111;
       transform: rotate(0deg);
     }
     .music-info { text-align:left; flex-grow:1; }
@@ -48,8 +48,8 @@
     <ul id="music-list" class="music-list"><li>Loading music…</li></ul>
   </div>
   <div class="copyright">
-    © 2025 Honey Sandwich. Please contact me on Discord for permission: 
-    <a href="https://discord.com/users/789872551731527690" target="_blank">Discord Link</a>.
+    © 2025 Honey Sandwich. Please contact me on Discord for permission:
+    <a href="https://discord.com/users/789872551731527690" target="_blank" rel="noopener">Discord Link</a>.
   </div>
 
   <script>
@@ -70,25 +70,35 @@
           return;
         }
 
+        // Helper: build CC license box for EspiDev covers
+        function ccBox(songTitle, originalUrl) {
+          return `
+            <div class="license-box">
+              This is a cover of EspiDev's song
+              <em>'${songTitle}'</em> (<a href="${originalUrl}" target="_blank" rel="noopener">Original on SoundCloud</a>)<br><br>
+              Licensed under Creative Commons:<br>
+              You are free to copy, distribute, and transmit this work under the following conditions:<br>
+              <strong>Attribution:</strong> You must give credit to the artist.<br><br>
+              <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">Commons Deed</a> |
+              <a href="https://creativecommons.org/licenses/by/3.0/legalcode" target="_blank" rel="noopener">Legal Code</a>
+            </div>
+          `;
+        }
+
         json.items.forEach(item => {
           const title = item.title || "Untitled Track";
+          const titleLC = title.toLowerCase();
           const audioUrl = item.enclosure?.link || "";
           const image = item.enclosure?.thumbnail || item.thumbnail || "https://via.placeholder.com/160";
 
+          // Decide copyright/license text
           let copyrightText;
-          if (title.includes("Forever") && title.includes("EspiDev")) {
-            copyrightText = `
-              <div class="license-box">
-                This is a cover of EspiDev's song 
-                <em>'Forever'</em> (<a href="https://www.newgrounds.com/audio/listen/1387465" target="_blank">Original on Newgrounds</a>)<br><br>
-                Licensed under Creative Commons:<br>
-                You are free to copy, distribute, and transmit this work under the following conditions:<br>
-                <strong>Attribution:</strong> You must give credit to the artist.<br><br>
-                <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank">Commons Deed</a> | 
-                <a href="https://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Legal Code</a><br><br>
-                * Please consider sharing revenue!
-              </div>
-            `;
+          if (titleLC.includes("espidev") && titleLC.includes("forever")) {
+            // Forever — link updated to SoundCloud
+            copyrightText = ccBox("Forever", "https://soundcloud.com/espidev/forever");
+          } else if (titleLC.includes("espidev") && titleLC.includes("reverie")) {
+            // Reverie — same CC box treatment
+            copyrightText = ccBox("Reverie", "https://soundcloud.com/espidev/reverie");
           } else {
             copyrightText = `<p>© 2025 Honey Sandwich. All rights reserved.</p>`;
           }
@@ -107,7 +117,7 @@
           `;
           list.appendChild(li);
 
-          // Rotation system
+          // Rotation system (only spin the cover that is currently playing)
           const audio = li.querySelector("audio");
           const cover = li.querySelector("img");
           let angle = 0;
