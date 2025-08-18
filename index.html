@@ -17,7 +17,7 @@
       height:160px; 
       border-radius:50%; 
       margin-right:20px; 
-      object-fit:contain; 
+      object-fit:cover; 
       background:#111; 
       transform: rotate(0deg);
     }
@@ -55,10 +55,10 @@
   <script>
     async function loadRSS() {
       const feedURL = "https://feeds.soundcloud.com/users/soundcloud:users:1514835736/sounds.rss";
-      const api = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedURL);
+      const api = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedURL) + "&_t=" + Date.now();
 
       try {
-        const res = await fetch(api);
+        const res = await fetch(api, { cache: "no-store" });
         const json = await res.json();
 
         const list = document.getElementById("music-list");
@@ -71,9 +71,9 @@
         }
 
         json.items.forEach(item => {
-          const title = item.title;
-          const audioUrl = item.enclosure.link || "";
-          const image = item.enclosure.thumbnail || item.thumbnail || "https://via.placeholder.com/160";
+          const title = item.title || "Untitled Track";
+          const audioUrl = item.enclosure?.link || "";
+          const image = item.enclosure?.thumbnail || item.thumbnail || "https://via.placeholder.com/160";
 
           let copyrightText;
           if (title.includes("Forever") && title.includes("EspiDev")) {
@@ -115,40 +115,22 @@
 
           function rotate() {
             if (spinning) {
-              angle = (angle + 0.09) % 360; // ~20s per rotation
+              angle = (angle + 0.09) % 360;
               cover.style.transform = `rotate(${angle}deg)`;
               requestAnimationFrame(rotate);
             }
           }
 
           audio.addEventListener("play", () => {
-            // Pause all other audios
             document.querySelectorAll("audio").forEach(a => {
               if (a !== audio) a.pause();
             });
-
-            // Stop other covers spinning
-            document.querySelectorAll(".music-list li").forEach(otherLi => {
-              if (otherLi !== li) {
-                const otherAudio = otherLi.querySelector("audio");
-                const otherImg = otherLi.querySelector("img");
-                if (otherAudio.paused) {
-                  otherLi.spinning = false;
-                }
-              }
-            });
-
             spinning = true;
             rotate();
           });
 
-          audio.addEventListener("pause", () => {
-            spinning = false; // stops loop but keeps angle
-          });
-
-          audio.addEventListener("ended", () => {
-            spinning = false;
-          });
+          audio.addEventListener("pause", () => { spinning = false; });
+          audio.addEventListener("ended", () => { spinning = false; });
         });
 
       } catch (err) {
@@ -157,7 +139,10 @@
       }
     }
 
+    // Load now
     loadRSS();
+    // Refresh every 5 minutes
+    setInterval(loadRSS, 5 * 60 * 1000);
   </script>
 </body>
 </html>
