@@ -88,16 +88,20 @@
         json.items.forEach(item => {
           const title = item.title || "Untitled Track";
           const titleLC = title.toLowerCase();
-          const audioUrl = item.enclosure?.link || "";
+
+          // fix audioUrl (strip proxy if present)
+          let audioUrl = item.enclosure?.link || "";
+          if (audioUrl.includes("/track/http")) {
+            audioUrl = audioUrl.replace(/^https?:\/\/[^/]+\/track\//, "");
+          }
+
           const image = item.enclosure?.thumbnail || item.thumbnail || "https://via.placeholder.com/160";
 
           // Decide copyright/license text
           let copyrightText;
           if (titleLC.includes("espidev") && titleLC.includes("forever")) {
-            // Forever — link updated to SoundCloud
             copyrightText = ccBox("Forever", "https://soundcloud.com/espidev/forever");
           } else if (titleLC.includes("espidev") && titleLC.includes("reverie")) {
-            // Reverie — same CC box treatment
             copyrightText = ccBox("Reverie", "https://soundcloud.com/espidev/reverie");
           } else {
             copyrightText = `<p>© 2025 Honey Sandwich. All rights reserved.</p>`;
