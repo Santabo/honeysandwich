@@ -31,6 +31,7 @@
       font-size:14px;
       color:#ddd;
       margin-top:10px;
+      line-height:1.5em;
     }
     .license-box a { color:#EBA937; text-decoration:none; }
     .license-box a:hover { text-decoration:underline; }
@@ -70,7 +71,7 @@
           return;
         }
 
-        // Helper: build CC license box for EspiDev covers
+        // Creative Commons box for EspiDev covers
         function ccBox(songTitle, originalUrl) {
           return `
             <div class="license-box">
@@ -81,6 +82,20 @@
               <strong>Attribution:</strong> You must give credit to the artist.<br><br>
               <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">Commons Deed</a> |
               <a href="https://creativecommons.org/licenses/by/3.0/legalcode" target="_blank" rel="noopener">Legal Code</a>
+            </div>
+          `;
+        }
+
+        // Honey Sandwich permissions box
+        function hsBox() {
+          return `
+            <div class="license-box">
+              This is an original song by <strong>Honey Sandwich</strong>.<br><br>
+              Licensed under Honey Sandwich Permissions:<br>
+              – Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).<br>
+              – No derivative works are allowed unless given explicit permission.<br>
+              – Use for revenue purposes requires permission via Discord.<br><br>
+              <a href="license.html" target="_blank" rel="noopener">Full License Details</a>
             </div>
           `;
         }
@@ -97,14 +112,14 @@
 
           const image = item.enclosure?.thumbnail || item.thumbnail || "https://via.placeholder.com/160";
 
-          // Decide copyright/license text
-          let copyrightText;
+          // Decide which license box to show
+          let licenseBox;
           if (titleLC.includes("espidev") && titleLC.includes("forever")) {
-            copyrightText = ccBox("Forever", "https://soundcloud.com/espidev/forever");
+            licenseBox = ccBox("Forever", "https://soundcloud.com/espidev/forever");
           } else if (titleLC.includes("espidev") && titleLC.includes("reverie")) {
-            copyrightText = ccBox("Reverie", "https://soundcloud.com/espidev/reverie");
+            licenseBox = ccBox("Reverie", "https://soundcloud.com/espidev/reverie");
           } else {
-            copyrightText = `<p>© 2025 Honey Sandwich. All rights reserved.</p>`;
+            licenseBox = hsBox();
           }
 
           const li = document.createElement("li");
@@ -116,7 +131,7 @@
                 <source src="${audioUrl}" type="audio/mpeg">
                 Your browser does not support audio.
               </audio>
-              ${copyrightText}
+              ${licenseBox}
             </div>
           `;
           list.appendChild(li);
