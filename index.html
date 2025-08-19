@@ -54,11 +54,9 @@
   </div>
 
   <script>
-    const clientId = "02gUJC0hH2ct1EGOcYXQIzRFU91c72Ea"; // public SC web client_id
-    const userURN = "soundcloud:users:1514835736"; // Honey Sandwich user
-
-    async function loadProfile() {
-      const api = `https://api-v2.soundcloud.com/profile/${userURN}?limit=20&linked_partitioning=1&client_id=${clientId}&app_version=170903&app_locale=en`;
+    async function loadRSS() {
+      const feedURL = "https://feeds.soundcloud.com/users/soundcloud:users:1514835736/sounds.rss";
+      const api = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedURL) + "&_t=" + Date.now();
 
       try {
         const res = await fetch(api, { cache: "no-store" });
@@ -67,12 +65,13 @@
         const list = document.getElementById("music-list");
         list.innerHTML = "";
 
-        if (!json.collection || json.collection.length === 0) {
+        if (!json.items) {
           list.innerHTML = "<li>⚠️ No music found.</li>";
-          console.log("Profile response:", json);
+          console.log("RSS2JSON response:", json);
           return;
         }
 
+        // Creative Commons box for EspiDev covers
         function ccBox(songTitle, originalUrl) {
           return `
             <div class="license-box">
@@ -87,6 +86,7 @@
           `;
         }
 
+        // Honey Sandwich permissions box
         function hsBox() {
           return `
             <div class="license-box">
@@ -100,17 +100,19 @@
           `;
         }
 
-        json.collection.forEach(entry => {
-          const track = entry.track || entry.playlist; // profile mixes tracks + playlists
-          if (!track) return;
-
-          const title = track.title || "Untitled";
+        json.items.forEach(item => {
+          const title = item.title || "Untitled Track";
           const titleLC = title.toLowerCase();
-          const artwork = track.artwork_url ? track.artwork_url.replace("-large","-t500x500") : "https://via.placeholder.com/160";
 
-          // Use progressive mp3 stream URL
-          const audioUrl = track.media?.transcodings?.find(t => t.format?.protocol === "progressive")?.url + `?client_id=${clientId}` || "";
+          // fix audioUrl (strip proxy if present)
+          let audioUrl = item.enclosure?.link || "";
+          if (audioUrl.includes("/track/http")) {
+            audioUrl = audioUrl.replace(/^https?:\/\/[^/]+\/track\//, "");
+          }
 
+          const image = item.enclosure?.thumbnail || item.thumbnail || "https://via.placeholder.com/160";
+
+          // Decide which license box to show
           let licenseBox;
           if (titleLC.includes("espidev") && titleLC.includes("forever")) {
             licenseBox = ccBox("Forever", "https://soundcloud.com/espidev/forever");
@@ -122,48 +124,54 @@
 
           const li = document.createElement("li");
           li.innerHTML = `
-            <img src="${artwork}" alt="Cover for ${title}">
+            <img src="${image}" alt="Cover for ${title}">
             <div class="music-info">
               <h3>${title}</h3>
-              ${audioUrl ? `
               <audio controls>
                 <source src="${audioUrl}" type="audio/mpeg">
                 Your browser does not support audio.
-              </audio>` : `<p>⚠️ Stream not available</p>`}
+              </audio>
               ${licenseBox}
             </div>
           `;
           list.appendChild(li);
 
+          // Rotation system (only spin the cover that is currently playing)
           const audio = li.querySelector("audio");
           const cover = li.querySelector("img");
-          if (audio) {
-            let angle = 0;
-            let spinning = false;
-            function rotate() {
-              if (spinning) {
-                angle = (angle + 0.09) % 360;
-                cover.style.transform = `rotate(${angle}deg)`;
-                requestAnimationFrame(rotate);
-              }
+          let angle = 0;
+          let spinning = false;
+
+          function rotate() {
+            if (spinning) {
+              angle = (angle + 0.09) % 360;
+              cover.style.transform = `rotate(${angle}deg)`;
+              requestAnimationFrame(rotate);
             }
-            audio.addEventListener("play", () => {
-              document.querySelectorAll("audio").forEach(a => { if (a !== audio) a.pause(); });
-              spinning = true; rotate();
-            });
-            audio.addEventListener("pause", () => { spinning = false; });
-            audio.addEventListener("ended", () => { spinning = false; });
           }
+
+          audio.addEventListener("play", () => {
+            document.querySelectorAll("audio").forEach(a => {
+              if (a !== audio) a.pause();
+            });
+            spinning = true;
+            rotate();
+          });
+
+          audio.addEventListener("pause", () => { spinning = false; });
+          audio.addEventListener("ended", () => { spinning = false; });
         });
 
       } catch (err) {
-        console.error("Error loading profile:", err);
+        console.error("Error loading feed:", err);
         document.getElementById("music-list").innerHTML = "<li>Failed to load music.</li>";
       }
     }
 
-    loadProfile();
-    setInterval(loadProfile, 5 * 60 * 1000);
+    // Load now
+    loadRSS();
+    // Refresh every 5 minutes
+    setInterval(loadRSS, 5 * 60 * 1000);
   </script>
 </body>
 </html>
