@@ -1,119 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Honey Sandwich - AI Generated Music">
-  <title>Honey Sandwich - AI Music</title>
-  <style>
-    body { font-family: Arial, sans-serif; background:#1e1e1e; color:#fff; text-align:center; margin:0; }
-    header { background:#EBA937; padding:20px; font-size:32px; font-weight:600; }
-    .container { max-width:900px; margin:20px auto; padding:30px; background:#2a2a2a; border-radius:12px; }
-    h2 { color:#EBA937; }
-    .music-list { list-style:none; padding:0; }
-    .music-list li { display:flex; margin:20px 0; padding:20px; background:#3a3a3a; border-radius:12px; align-items:center; flex-wrap:wrap; }
-    .music-list img { width:160px; height:160px; border-radius:50%; margin-right:20px; object-fit:cover; background:#111; }
-    .music-info { text-align:left; flex-grow:1; min-width:250px; }
-    .music-info h3 { color:#EBA937; margin:10px 0; }
-    .music-links { margin:15px 0; display:flex; flex-wrap:wrap; gap:10px; }
-    .music-links a { display:flex; align-items:center; gap:8px; padding:10px 16px; border-radius:8px; font-weight:600; text-decoration:none; transition: all 0.25s ease; font-size:14px; }
-    .music-links svg { width:20px; height:20px; fill:#fff; }
-    .btn-soundcloud { background:#ff5500; color:#fff; }
-    .btn-soundcloud:hover { background:#ff7b33; }
-    .btn-spotify { background:#1DB954; color:#fff; }
-    .btn-spotify:hover { background:#1ed760; }
-    .spotify-embed { margin-top:15px; }
-    .license-box { background:#444; padding:12px; border-radius:8px; font-size:14px; color:#ddd; margin-top:10px; line-height:1.5em; }
-    .license-box a { color:#EBA937; text-decoration:none; }
-    .license-box a:hover { text-decoration:underline; }
-    .copyright { margin:30px 0; font-size:14px; color:#bbb; }
-    @media(max-width:768px){
-      .music-list li{flex-direction:column; text-align:center;}
-      .music-list img{margin:0 0 15px 0;}
-      .music-links { justify-content:center; }
-      .music-info { text-align:center; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Honey Sandwich - AI Generated Music">
+<title>Honey Sandwich - AI Music</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#1e1e1e; color:#fff; text-align:center; margin:0; }
+  header { background:#EBA937; padding:20px; font-size:32px; font-weight:600; }
+  .container { max-width:900px; margin:20px auto; padding:30px; background:#2a2a2a; border-radius:12px; }
+  h2 { color:#EBA937; margin-bottom:20px; }
+
+  .music-list { list-style:none; padding:0; margin:0; }
+  .music-list li { display:flex; flex-wrap:wrap; margin:20px 0; padding:20px; background:#3a3a3a; border-radius:12px; align-items:flex-start; transition: background 0.25s; }
+  .music-list li:hover { background:#4a4a4a; }
+
+  .music-list img { width:160px; height:160px; border-radius:12px; margin-right:20px; object-fit:cover; background:#111; flex-shrink:0; }
+
+  .music-info { text-align:left; flex-grow:1; min-width:250px; display:flex; flex-direction:column; }
+  .music-info h3 { color:#EBA937; margin:0 0 10px 0; }
+
+  .music-links { display:flex; flex-wrap:wrap; gap:10px; margin:10px 0; justify-content:flex-start; }
+  .music-links a { display:flex; align-items:center; gap:8px; padding:10px 16px; border-radius:8px; font-weight:600; text-decoration:none; transition: all 0.25s ease; font-size:14px; }
+  .music-links svg { width:20px; height:20px; fill:#fff; }
+
+  .btn-soundcloud { background:#ff5500; color:#fff; }
+  .btn-soundcloud:hover { background:#ff7b33; }
+  .btn-spotify { background:#1DB954; color:#fff; }
+  .btn-spotify:hover { background:#1ed760; }
+  .btn-deezer { background:#ff0066; color:#fff; }
+  .btn-deezer:hover { background:#ff3388; }
+
+  .spotify-embed { margin-top:15px; border-radius:12px; overflow:hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+  .spotify-embed iframe { border-radius:12px; width:100%; height:152px; }
+
+  .license-box { background:#444; padding:12px; border-radius:8px; font-size:14px; color:#ddd; margin-top:15px; line-height:1.5em; }
+  .license-box a { color:#EBA937; text-decoration:none; }
+  .license-box a:hover { text-decoration:underline; }
+
+  .copyright { margin:30px 0; font-size:14px; color:#bbb; }
+
+  @media(max-width:768px){
+    .music-list li { flex-direction:column; text-align:center; }
+    .music-list img { margin:0 0 15px 0; width:200px; height:200px; }
+    .music-info { text-align:center; }
+    .music-links { justify-content:center; }
+  }
+</style>
 </head>
 <body>
-  <header>Honey Sandwich - AI Generated Music</header>
-  <div class="container">
-    <h2>Featured Music</h2>
-    <ul class="music-list" id="music-list"></ul>
-  </div>
+<header>Honey Sandwich - AI Generated Music</header>
+<div class="container">
+  <h2>Featured Music</h2>
+  <ul class="music-list" id="music-list"></ul>
+</div>
 
-  <div class="copyright">
-    © 2025 Honey Sandwich. Please contact me on Discord for permission:
-    <a href="https://discord.com/users/789872551731527690" target="_blank" rel="noopener">Discord Link</a>.
-  </div>
+<div class="copyright">
+  © 2025 Honey Sandwich. Please contact me on Discord for permission:
+  <a href="https://discord.com/users/789872551731527690" target="_blank" rel="noopener">Discord Link</a>.
+</div>
 
 <script>
-  async function loadSongs() {
-    try {
-      const res = await fetch('/songs.json');
-      const songs = await res.json();
-      const list = document.getElementById('music-list');
+async function loadSongs() {
+  try {
+    const res = await fetch('/songs.json');
+    const songs = await res.json();
+    const list = document.getElementById('music-list');
 
-      songs.forEach(song => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <img src="${song.cover}" alt="Cover for ${song.title}">
-          <div class="music-info">
-            <h3>${song.title}</h3>
+    songs.forEach(song => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <img src="${song.cover}" alt="Cover for ${song.title}">
+        <div class="music-info">
+          <h3>${song.title}</h3>
 
-            <!-- Buttons -->
-            <div class="music-links">
-              ${song.links.soundcloud ? `
-                <a href="${song.links.soundcloud}" target="_blank" rel="noopener" class="btn-soundcloud">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5 10.2c-.3 0-.7 0-1 .1-.5-2.1-2.4-3.7-4.6-3.7-1 0-1.9.3-2.6.8-.2.1-.3.3-.3.5v7.6c0 .4.3.7.7.7h7.8c1.5 0 2.7-1.2 2.7-2.7-.1-1.8-1.5-3.3-3.4-3.3z"/></svg>
-                  SoundCloud
-                </a>` : ''
-              }
-              ${song.links.spotify ? `
-                <a href="${song.links.spotify}" target="_blank" rel="noopener" class="btn-spotify">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.3 0 12c0 6.6 5.4 12 12 12s12-5.4 12-12c0-6.7-5.4-12-12-12zm5.5 17.3c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.8-9.5-1-.3.1-.7-.1-.8-.4s.1-.7.4-.8c4.1-.9 7.7-.6 10.5 1.1.3.2.4.6.3.9zm1.2-2.8c-.3.4-.8.5-1.2.3-2.9-1.7-7.4-2.2-10.9-1.2-.4.1-.9-.1-1-.5s.1-.9.5-1c3.9-1.1 8.9-.6 12.2 1.4.4.2.5.8.3 1.2zm.1-3c-3.5-2.1-9.3-2.3-12.6-1.3-.5.2-1.1-.1-1.3-.6-.2-.5.1-1.1.6-1.3 3.8-1.1 10.3-.8 14.4 1.5.5.3.6.9.3 1.4-.2.5-.8.6-1.4.3z"/></svg>
-                  Spotify
-                </a>` : ''
-              }
-              ${song.links.deezer ? `
-                <a href="${song.links.deezer}" target="_blank" rel="noopener" class="btn-deezer">
-                  <!-- Example Deezer SVG -->
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h8v2H3v-2zm0 4h16v2H3v-2zm0 4h10v2H3v-2z"/></svg>
-                  Deezer
-                </a>` : ''
-              }
-            </div>
-
-            <!-- Spotify Player -->
-            ${song.spotifyEmbed ? `
-              <div class="spotify-embed">
-                <iframe style="border-radius:12px" src="${song.spotifyEmbed}"
-                  width="100%" height="152" frameborder="0"
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"></iframe>
-              </div>` : ''
+          <div class="music-links">
+            ${song.links.soundcloud ? `
+              <a href="${song.links.soundcloud}" target="_blank" rel="noopener" class="btn-soundcloud">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5 10.2c-.3 0-.7 0-1 .1-.5-2.1-2.4-3.7-4.6-3.7-1 0-1.9.3-2.6.8-.2.1-.3.3-.3.5v7.6c0 .4.3.7.7.7h7.8c1.5 0 2.7-1.2 2.7-2.7-.1-1.8-1.5-3.3-3.4-3.3z"/></svg>
+                SoundCloud
+              </a>` : ''
             }
-
-            <!-- License -->
-            <div class="license-box">
-              This is an original song by <strong>Honey Sandwich</strong>.<br><br>
-              Licensed under Honey Sandwich Permissions:<br>
-              – Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).<br>
-              – No derivative works are allowed unless given explicit permission.<br>
-              – Use for revenue purposes requires permission via Discord.<br><br>
-              <a href="license.html" target="_blank" rel="noopener">Full License Details</a>
-            </div>
+            ${song.links.spotify ? `
+              <a href="${song.links.spotify}" target="_blank" rel="noopener" class="btn-spotify">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.3 0 12c0 6.6 5.4 12 12 12s12-5.4 12-12c0-6.7-5.4-12-12-12zm5.5 17.3c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.8-9.5-1-.3.1-.7-.1-.8-.4s.1-.7.4-.8c4.1-.9 7.7-.6 10.5 1.1.3.2.4.6.3.9zm1.2-2.8c-.3.4-.8.5-1.2.3-2.9-1.7-7.4-2.2-10.9-1.2-.4.1-.9-.1-1-.5s.1-.9.5-1c3.9-1.1 8.9-.6 12.2 1.4.4.2.5.8.3 1.2zm.1-3c-3.5-2.1-9.3-2.3-12.6-1.3-.5.2-1.1-.1-1.3-.6-.2-.5.1-1.1.6-1.3 3.8-1.1 10.3-.8 14.4 1.5.5.3.6.9.3 1.4-.2.5-.8.6-1.4.3z"/></svg>
+                Spotify
+              </a>` : ''
+            }
+            ${song.links.deezer ? `
+              <a href="${song.links.deezer}" target="_blank" rel="noopener" class="btn-deezer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h8v2H3v-2zm0 4h16v2H3v-2zm0 4h10v2H3v-2z"/></svg>
+                Deezer
+              </a>` : ''
+            }
           </div>
-        `;
-        list.appendChild(li);
-      });
-    } catch (err) {
-      console.error("Error loading songs:", err);
-    }
+
+          ${song.spotifyEmbed ? `
+            <div class="spotify-embed">
+              <iframe src="${song.spotifyEmbed}"
+                width="100%" height="152" frameborder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"></iframe>
+            </div>` : ''
+          }
+
+          <div class="license-box">
+            This is an original song by <strong>Honey Sandwich</strong>.<br><br>
+            Licensed under Honey Sandwich Permissions:<br>
+            – Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).<br>
+            – No derivative works are allowed unless given explicit permission.<br>
+            – Use for revenue purposes requires permission via Discord.<br><br>
+            <a href="license.html" target="_blank" rel="noopener">Full License Details</a>
+          </div>
+        </div>
+      `;
+      list.appendChild(li);
+    });
+  } catch (err) {
+    console.error("Error loading songs:", err);
   }
+}
 
-  loadSongs();
+loadSongs();
 </script>
-
 </body>
 </html>
