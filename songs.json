@@ -1,0 +1,31 @@
+[
+  {
+    "title": "Together, Forever",
+    "cover": "https://i.ibb.co/X1WQmYY/artworks-2gh-ZVf-CTFHIc-La8c-wa-M9-FQ-t3000x3000.jpg",
+    "links": {
+      "soundcloud": "https://soundcloud.com/honeysandwich/together-forever",
+      "spotify": "https://open.spotify.com/track/6lAzkmvTPBcZjQNvKKTIbP",
+      "deezer": "https://www.deezer.com/track/example"
+    },
+    "spotifyEmbed": "https://open.spotify.com/embed/track/6lAzkmvTPBcZjQNvKKTIbP?utm_source=generator"
+  },
+  {
+    "title": "Hoshino Dreaming",
+    "cover": "https://i.ibb.co/q3txd9Rz/artworks-0vytm-Nvg-KLID6-Ksh-Rq-Eq2g-t3000x3000.jpg",
+    "links": {
+      "soundcloud": "https://soundcloud.com/honeysandwich/hoshino-dreaming",
+      "spotify": "https://open.spotify.com/track/2E7ajBRMHQNuJgGnzsCAJQ",
+      "deezer": "https://www.deezer.com/track/example2"
+    },
+    "spotifyEmbed": "https://open.spotify.com/embed/track/2E7ajBRMHQNuJgGnzsCAJQ?utm_source=generator"
+  },
+  {
+    "title": "Soar of the Wren",
+    "cover": "https://iili.io/KHDQnTX.jpg",
+    "links": {
+      "spotify": "https://open.spotify.com/track/4tSOs76MVM9e3qCtc4BtjD",
+      "deezer": "https://www.deezer.com/track/example3"
+    },
+    "spotifyEmbed": "https://open.spotify.com/embed/track/4tSOs76MVM9e3qCtc4BtjD?utm_source=generator"
+  }
+]
