@@ -27,5 +27,24 @@
       "deezer": ""
     },
     "spotifyEmbed": "https://open.spotify.com/embed/track/4tSOs76MVM9e3qCtc4BtjD?utm_source=generator"
+  },
+  {
+    "type": "album",
+    "title": "The Cacophony of Captain Duckfoot",
+    "cover": "https://i.scdn.co/image/ab67616d0000b273example", 
+    "links": {
+      "spotify": "https://open.spotify.com/album/4iUvT7GoRm3pZzfac3hlwt?si=vEFlyoJGTAi6rkiU06Aq5A",
+      "deezer": ""
+    },
+    "spotifyEmbed": "https://open.spotify.com/embed/album/4iUvT7GoRm3pZzfac3hlwt?utm_source=generator",
+    "tracks": [
+      "The Cacophony of Captain Duckfoot",
+      "Tempest of the Northern Tide",
+      "Secrets of the Sunlit Sea",
+      "The Dread of the Black Depths",
+      "Raiders of the Eastern Wind",
+      "Sirens of the Shimmering Blue",
+      "The Final Horizon"
+    ]
   }
 ]
