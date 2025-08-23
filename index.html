@@ -37,9 +37,12 @@ h2 { color:#EBA937; }
   padding:20px;
   background:#3a3a3a;
   border-radius:12px;
-  transition: background 0.25s;
+  transition: background 0.25s, transform 0.25s;
 }
-.music-card:hover { background:#4a4a4a; }
+.music-card:hover { 
+  background:#4a4a4a; 
+  transform: translateY(-3px);
+}
 
 /* Spotify / Embed container */
 .embed-container {
@@ -129,11 +132,8 @@ async function loadSongs() {
       const li = document.createElement('li');
       li.className = 'music-card';
 
-      // Determine height based on type
-      let embedHeight = 152; // default for singles
-      if (song.type === 'album' && song.tracks) {
-        embedHeight = Math.max(380, song.tracks.length * 70); // scale by number of tracks
-      }
+      // Determine height: fixed 575px for albums, 152px for singles
+      const embedHeight = song.type === 'album' ? 575 : 152;
 
       li.innerHTML = `
         ${song.spotifyEmbed ? `
