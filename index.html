@@ -23,7 +23,33 @@
     }
     .music-info { text-align:left; flex-grow:1; }
     .music-info h3 { color:#EBA937; margin:10px 0; }
-    .music-info audio { width:100%; max-width:320px; margin:15px 0; }
+    .music-links { margin:15px 0; display:flex; flex-wrap:wrap; gap:10px; }
+    .music-links a {
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 16px;
+      border-radius:8px;
+      font-weight:600;
+      text-decoration:none;
+      transition: all 0.25s ease;
+      font-size:14px;
+    }
+    .music-links svg {
+      width:20px;
+      height:20px;
+      fill:#fff; /* force icons to show as white */
+    }
+    .btn-soundcloud {
+      background:#ff5500;
+      color:#fff;
+    }
+    .btn-soundcloud:hover { background:#ff7b33; }
+    .btn-spotify {
+      background:#1DB954;
+      color:#fff;
+    }
+    .btn-spotify:hover { background:#1ed760; }
     .license-box {
       background:#444;
       padding:12px;
@@ -39,6 +65,7 @@
     @media(max-width:768px){
       .music-list li{flex-direction:column; text-align:center;}
       .music-list img{margin:0 0 15px 0;}
+      .music-links { justify-content:center; }
     }
   </style>
 </head>
@@ -46,132 +73,67 @@
   <header>Honey Sandwich - AI Generated Music</header>
   <div class="container">
     <h2>Featured Music</h2>
-    <ul id="music-list" class="music-list"><li>Loading music…</li></ul>
+    <ul class="music-list">
+
+      <!-- Together, Forever -->
+      <li>
+        <img src="https://i.ibb.co/X1WQmYY/artworks-2gh-ZVf-CTFHIc-La8c-wa-M9-FQ-t3000x3000.jpg" alt="Cover for Together, Forever">
+        <div class="music-info">
+          <h3>Together, Forever</h3>
+          <div class="music-links">
+            <a href="https://soundcloud.com/honeysandwich/together-forever" target="_blank" rel="noopener" class="btn-soundcloud">
+              <!-- SoundCloud Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5 10.2c-.3 0-.7 0-1 .1-.5-2.1-2.4-3.7-4.6-3.7-1 0-1.9.3-2.6.8-.2.1-.3.3-.3.5v7.6c0 .4.3.7.7.7h7.8c1.5 0 2.7-1.2 2.7-2.7-.1-1.8-1.5-3.3-3.4-3.3z"/></svg>
+              SoundCloud
+            </a>
+            <a href="https://open.spotify.com/track/6lAzkmvTPBcZjQNvKKTIbP" target="_blank" rel="noopener" class="btn-spotify">
+              <!-- Spotify Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.3 0 12c0 6.6 5.4 12 12 12s12-5.4 12-12c0-6.7-5.4-12-12-12zm5.5 17.3c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.8-9.5-1-.3.1-.7-.1-.8-.4s.1-.7.4-.8c4.1-.9 7.7-.6 10.5 1.1.3.2.4.6.3.9zm1.2-2.8c-.3.4-.8.5-1.2.3-2.9-1.7-7.4-2.2-10.9-1.2-.4.1-.9-.1-1-.5s.1-.9.5-1c3.9-1.1 8.9-.6 12.2 1.4.4.2.5.8.3 1.2zm.1-3c-3.5-2.1-9.3-2.3-12.6-1.3-.5.2-1.1-.1-1.3-.6-.2-.5.1-1.1.6-1.3 3.8-1.1 10.3-.8 14.4 1.5.5.3.6.9.3 1.4-.2.5-.8.6-1.4.3z"/></svg>
+              Spotify
+            </a>
+          </div>
+          <div class="license-box">
+            This is an original song by <strong>Honey Sandwich</strong>.<br><br>
+            Licensed under Honey Sandwich Permissions:<br>
+            – Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).<br>
+            – No derivative works are allowed unless given explicit permission.<br>
+            – Use for revenue purposes requires permission via Discord.<br><br>
+            <a href="license.html" target="_blank" rel="noopener">Full License Details</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Hoshino Dreaming -->
+      <li>
+        <img src="https://i.ibb.co/q3txd9Rz/artworks-0vytm-Nvg-KLID6-Ksh-Rq-Eq2g-t3000x3000.jpg" alt="Cover for Hoshino Dreaming">
+        <div class="music-info">
+          <h3>Hoshino Dreaming</h3>
+          <div class="music-links">
+            <a href="https://soundcloud.com/honeysandwich/hoshino-dreaming" target="_blank" rel="noopener" class="btn-soundcloud">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5 10.2c-.3 0-.7 0-1 .1-.5-2.1-2.4-3.7-4.6-3.7-1 0-1.9.3-2.6.8-.2.1-.3.3-.3.5v7.6c0 .4.3.7.7.7h7.8c1.5 0 2.7-1.2 2.7-2.7-.1-1.8-1.5-3.3-3.4-3.3z"/></svg>
+              SoundCloud
+            </a>
+            <a href="https://open.spotify.com/track/2E7ajBRMHQNuJgGnzsCAJQ?si=d54ac4ca6b5f42e6" target="_blank" rel="noopener" class="btn-spotify">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.3 0 12c0 6.6 5.4 12 12 12s12-5.4 12-12c0-6.7-5.4-12-12-12zm5.5 17.3c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.8-9.5-1-.3.1-.7-.1-.8-.4s.1-.7.4-.8c4.1-.9 7.7-.6 10.5 1.1.3.2.4.6.3.9zm1.2-2.8c-.3.4-.8.5-1.2.3-2.9-1.7-7.4-2.2-10.9-1.2-.4.1-.9-.1-1-.5s.1-.9.5-1c3.9-1.1 8.9-.6 12.2 1.4.4.2.5.8.3 1.2zm.1-3c-3.5-2.1-9.3-2.3-12.6-1.3-.5.2-1.1-.1-1.3-.6-.2-.5.1-1.1.6-1.3 3.8-1.1 10.3-.8 14.4 1.5.5.3.6.9.3 1.4-.2.5-.8.6-1.4.3z"/></svg>
+              Spotify
+            </a>
+          </div>
+          <div class="license-box">
+            This is an original song by <strong>Honey Sandwich</strong>.<br><br>
+            Licensed under Honey Sandwich Permissions:<br>
+            – Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).<br>
+            – No derivative works are allowed unless given explicit permission.<br>
+            – Use for revenue purposes requires permission via Discord.<br><br>
+            <a href="license.html" target="_blank" rel="noopener">Full License Details</a>
+          </div>
+        </div>
+      </li>
+
+    </ul>
   </div>
   <div class="copyright">
     © 2025 Honey Sandwich. Please contact me on Discord for permission:
     <a href="https://discord.com/users/789872551731527690" target="_blank" rel="noopener">Discord Link</a>.
   </div>
-
-  <script>
-    async function loadRSS() {
-      const feedURL = "https://feeds.soundcloud.com/users/soundcloud:users:1514835736/sounds.rss";
-      const api = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedURL) + "&_t=" + Date.now();
-
-      try {
-        const res = await fetch(api, { cache: "no-store" });
-        const json = await res.json();
-
-        const list = document.getElementById("music-list");
-        list.innerHTML = "";
-
-        if (!json.items) {
-          list.innerHTML = "<li>⚠️ No music found.</li>";
-          console.log("RSS2JSON response:", json);
-          return;
-        }
-
-        // Creative Commons box for EspiDev covers
-        function ccBox(songTitle, originalUrl) {
-          return `
-            <div class="license-box">
-              This is a cover of EspiDev's song
-              <em>'${songTitle}'</em> (<a href="${originalUrl}" target="_blank" rel="noopener">Original on SoundCloud</a>)<br><br>
-              Licensed under Creative Commons:<br>
-              You are free to copy, distribute, and transmit this work under the following conditions:<br>
-              <strong>Attribution:</strong> You must give credit to the artist.<br><br>
-              <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">Commons Deed</a> |
-              <a href="https://creativecommons.org/licenses/by/3.0/legalcode" target="_blank" rel="noopener">Legal Code</a>
-            </div>
-          `;
-        }
-
-        // Honey Sandwich permissions box
-        function hsBox() {
-          return `
-            <div class="license-box">
-              This is an original song by <strong>Honey Sandwich</strong>.<br><br>
-              Licensed under Honey Sandwich Permissions:<br>
-              – Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).<br>
-              – No derivative works are allowed unless given explicit permission.<br>
-              – Use for revenue purposes requires permission via Discord.<br><br>
-              <a href="license.html" target="_blank" rel="noopener">Full License Details</a>
-            </div>
-          `;
-        }
-
-        json.items.forEach(item => {
-          const title = item.title || "Untitled Track";
-          const titleLC = title.toLowerCase();
-
-          // fix audioUrl (strip proxy if present)
-          let audioUrl = item.enclosure?.link || "";
-          if (audioUrl.includes("/track/http")) {
-            audioUrl = audioUrl.replace(/^https?:\/\/[^/]+\/track\//, "");
-          }
-
-          const image = item.enclosure?.thumbnail || item.thumbnail || "https://via.placeholder.com/160";
-
-          // Decide which license box to show
-          let licenseBox;
-          if (titleLC.includes("espidev") && titleLC.includes("forever")) {
-            licenseBox = ccBox("Forever", "https://soundcloud.com/espidev/forever");
-          } else if (titleLC.includes("espidev") && titleLC.includes("reverie")) {
-            licenseBox = ccBox("Reverie", "https://soundcloud.com/espidev/reverie");
-          } else {
-            licenseBox = hsBox();
-          }
-
-          const li = document.createElement("li");
-          li.innerHTML = `
-            <img src="${image}" alt="Cover for ${title}">
-            <div class="music-info">
-              <h3>${title}</h3>
-              <audio controls>
-                <source src="${audioUrl}" type="audio/mpeg">
-                Your browser does not support audio.
-              </audio>
-              ${licenseBox}
-            </div>
-          `;
-          list.appendChild(li);
-
-          // Rotation system (only spin the cover that is currently playing)
-          const audio = li.querySelector("audio");
-          const cover = li.querySelector("img");
-          let angle = 0;
-          let spinning = false;
-
-          function rotate() {
-            if (spinning) {
-              angle = (angle + 0.09) % 360;
-              cover.style.transform = `rotate(${angle}deg)`;
-              requestAnimationFrame(rotate);
-            }
-          }
-
-          audio.addEventListener("play", () => {
-            document.querySelectorAll("audio").forEach(a => {
-              if (a !== audio) a.pause();
-            });
-            spinning = true;
-            rotate();
-          });
-
-          audio.addEventListener("pause", () => { spinning = false; });
-          audio.addEventListener("ended", () => { spinning = false; });
-        });
-
-      } catch (err) {
-        console.error("Error loading feed:", err);
-        document.getElementById("music-list").innerHTML = "<li>Failed to load music.</li>";
-      }
-    }
-
-    // Load now
-    loadRSS();
-    // Refresh every 5 minutes
-    setInterval(loadRSS, 5 * 60 * 1000);
-  </script>
 </body>
 </html>
