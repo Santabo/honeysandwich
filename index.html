@@ -81,21 +81,22 @@
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
   }
-  .music-info {
+  .music-info-container {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 20px;
+    width: 100%;
   }
   @media(min-width: 768px) {
-    .music-info {
+    .music-info-container {
       flex-direction: row;
       align-items: flex-start;
       margin-bottom: 0;
     }
   }
-  .music-info img {
+  .music-info-container img {
     width: 150px;
     height: 150px;
     border-radius: 12px;
@@ -104,11 +105,11 @@
     margin-bottom: 20px;
     transition: transform 0.3s ease;
   }
-  .music-card:hover .music-info img {
+  .music-card:hover .music-info-container img {
     transform: scale(1.05);
   }
   @media(min-width: 768px) {
-    .music-info img {
+    .music-info-container img {
       margin-right: 30px;
       margin-bottom: 0;
     }
@@ -184,10 +185,13 @@
   .btn-deezer { background: var(--btn-deezer); color: var(--text-light); }
   .btn-deezer:hover { background: var(--btn-deezer-hover); transform: scale(1.05); }
   
+  .license-container {
+    width: 100%;
+    margin-top: 20px;
+  }
   .license-box {
     background: #1e1e1e;
     border-radius: 12px;
-    margin-top: 30px;
   }
   .license-summary {
     display: flex;
@@ -288,7 +292,7 @@
         `).join('');
 
         li.innerHTML = `
-          <div class="music-info">
+          <div class="music-info-container">
             ${song.cover ? `<img src="${song.cover}" alt="Cover art for ${song.title}">` : ''}
             <div class="text-content">
               <h3>${song.title}</h3>
@@ -298,15 +302,17 @@
           
           <div class="music-links">${musicLinksHtml}</div>
 
-          <div class="license-box">
-            <span class="license-summary">License Details<span></span></span>
-            <div class="license-details">
-              This is an original song by <strong>Honey Sandwich</strong>.<br><br>
-              Licensed under Honey Sandwich Permissions:<br>
-              – Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).<br>
-              – No derivative works are allowed unless given explicit permission.<br>
-              – Use for revenue purposes requires permission via Discord.<br><br>
-              <a href="license.html" target="_blank" rel="noopener">Full License Details</a>
+          <div class="license-container">
+            <div class="license-box">
+              <span class="license-summary">License Details<span></span></span>
+              <div class="license-details">
+                This is an original song by <strong>Honey Sandwich</strong>.<br><br>
+                Licensed under Honey Sandwich Permissions:<br>
+                – Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).<br>
+                – No derivative works are allowed unless given explicit permission.<br>
+                – Use for revenue purposes requires permission via Discord.<br><br>
+                <a href="license.html" target="_blank" rel="noopener">Full License Details</a>
+              </div>
             </div>
           </div>
         `;
