@@ -100,16 +100,6 @@
   .album-tracks li {
     padding: 4px 0;
   }
-  .embed-container {
-    width: 100%;
-    margin-top: 20px;
-  }
-  .embed-container iframe {
-    width: 100%;
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  }
   .music-links {
     display: flex;
     flex-wrap: wrap;
@@ -139,24 +129,54 @@
   .btn-soundcloud:hover { background: var(--btn-soundcloud-hover); transform: scale(1.05); }
   .btn-deezer { background: var(--btn-deezer); color: var(--text-light); }
   .btn-deezer:hover { background: var(--btn-deezer-hover); transform: scale(1.05); }
+  
   .license-box {
     background: #333;
-    padding: 18px;
     border-radius: 12px;
+    margin-top: 25px;
+  }
+  .license-summary {
+    display: block;
+    padding: 18px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-weight: 600;
+    text-align: left;
+    position: relative;
+  }
+  .license-summary::after {
+    content: '+';
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+  .license-details {
+    display: none;
+    padding: 0 18px 18px;
     font-size: 0.85rem;
     color: var(--text-secondary);
     line-height: 1.6;
-    margin-top: 25px;
     text-align: left;
   }
-  .license-box a {
+  .license-box.active .license-details {
+    display: block;
+  }
+  .license-box.active .license-summary::after {
+    content: '-';
+  }
+  .license-details a {
     color: var(--accent);
     text-decoration: none;
     font-weight: 600;
   }
-  .license-box a:hover {
+  .license-details a:hover {
     text-decoration: underline;
   }
+  
   .copyright {
     margin: 40px 0;
     font-size: 0.9rem;
@@ -165,9 +185,6 @@
   @media(max-width: 768px) {
     .music-list {
       grid-template-columns: 1fr;
-    }
-    .embed-container iframe {
-      height: 300px;
     }
   }
 </style>
@@ -203,8 +220,6 @@
         const li = document.createElement('li');
         li.className = 'music-card';
 
-        const embedHeight = song.type === 'album' ? 575 : 152;
-        
         const trackListHtml = song.type === 'album' && song.tracks ? `
           <ul class="album-tracks">
             ${song.tracks.map(track => `<li>${track}</li>`).join('')}
@@ -222,27 +237,31 @@
             <h3>${song.title}</h3>
             ${trackListHtml}
           </div>
-
-          ${song.spotifyEmbed ? `
-            <div class="embed-container">
-              <iframe src="${song.spotifyEmbed}" height="${embedHeight}"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"></iframe>
-            </div>` : ''}
           
           <div class="music-links">${musicLinksHtml}</div>
 
           <div class="license-box">
-            This is an original song by <strong>Honey Sandwich</strong>.<br><br>
-            Licensed under Honey Sandwich Permissions:<br>
-            – Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).<br>
-            – No derivative works are allowed unless given explicit permission.<br>
-            – Use for revenue purposes requires permission via Discord.<br><br>
-            <a href="license.html" target="_blank" rel="noopener">Full License Details</a>
+            <span class="license-summary">License Details</span>
+            <div class="license-details">
+              This is an original song by <strong>Honey Sandwich</strong>.<br><br>
+              Licensed under Honey Sandwich Permissions:<br>
+              – Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).<br>
+              – No derivative works are allowed unless given explicit permission.<br>
+              – Use for revenue purposes requires permission via Discord.<br><br>
+              <a href="license.html" target="_blank" rel="noopener">Full License Details</a>
+            </div>
           </div>
         `;
         list.appendChild(li);
       });
+
+      // Add a listener to toggle the license box
+      list.querySelectorAll('.license-summary').forEach(summary => {
+        summary.addEventListener('click', () => {
+          summary.parentElement.classList.toggle('active');
+        });
+      });
+
     } catch (err) {
       console.error("Error loading songs:", err);
     }
