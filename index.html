@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root {
     --bg-dark: #121212;
@@ -118,6 +119,10 @@
     font-size: 0.9rem;
     transition: all 0.3s ease;
   }
+  .music-links i {
+    font-size: 20px;
+    color: var(--text-light);
+  }
   .music-links svg {
     width: 20px;
     height: 20px;
@@ -210,8 +215,8 @@
       const songs = await res.json();
       const list = document.getElementById('music-list');
 
-      const svgIcons = {
-        soundcloud: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5 10.2c-.3 0-.7 0-1 .1-.5-2.1-2.4-3.7-4.6-3.7-1 0-1.9.3-2.6.8-.2.1-.3.3-.3.5v7.6c0 .4.3.7.7.7h7.8c1.5 0 2.7-1.2 2.7-2.7-.1-1.8-1.5-3.3-3.4-3.3z"/></svg>`,
+      const icons = {
+        soundcloud: `<i class="fa-brands fa-soundcloud"></i>`,
         spotify: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.3 0 12c0 6.6 5.4 12 12 12s12-5.4 12-12c0-6.7-5.4-12-12-12zm5.5 17.3c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.8-9.5-1-.3.1-.7-.1-.8-.4s.1-.7.4-.8c4.1-.9 7.7-.6 10.5 1.1.3.2.4.6.3.9zm1.2-2.8c-.3.4-.8.5-1.2.3-2.9-1.7-7.4-2.2-10.9-1.2-.4.1-.9-.1-1-.5s.1-.9.5-1c3.9-1.1 8.9-.6 12.2 1.4.4.2.5.8.3 1.2zm.1-3c-3.5-2.1-9.3-2.3-12.6-1.3-.5.2-1.1-.1-1.3-.6-.2-.5.1-1.1.6-1.3 3.8-1.1 10.3-.8 14.4 1.5.5.3.6.9.3 1.4-.2.5-.8.6-1.4.3z"/></svg>`,
         deezer: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h8v2H3v-2zm0 4h16v2H3v-2zm0 4h10v2H3v-2z"/></svg>`
       };
@@ -227,7 +232,7 @@
         
         const musicLinksHtml = Object.entries(song.links).filter(([, value]) => value).map(([key, value]) => `
           <a href="${value}" target="_blank" rel="noopener" class="btn-${key}">
-            ${svgIcons[key] || ''} ${key.charAt(0).toUpperCase() + key.slice(1)}
+            ${icons[key] || ''} ${key.charAt(0).toUpperCase() + key.slice(1)}
           </a>
         `).join('');
 
