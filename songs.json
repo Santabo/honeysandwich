@@ -6,7 +6,6 @@
       "soundcloud": "https://soundcloud.com/honeysandwich/together-forever",
       "spotify": "https://open.spotify.com/track/6lAzkmvTPBcZjQNvKKTIbP"
     },
-    "spotifyEmbed": "https://open.spotify.com/embed/track/6lAzkmvTPBcZjQNvKKTIbP?utm_source=generator"
   },
   {
     "title": "Hoshino Dreaming",
@@ -15,7 +14,6 @@
       "soundcloud": "https://soundcloud.com/honeysandwich/hoshino-dreaming",
       "spotify": "https://open.spotify.com/track/2E7ajBRMHQNuJgGnzsCAJQ"
     },
-    "spotifyEmbed": "https://open.spotify.com/embed/track/2E7ajBRMHQNuJgGnzsCAJQ?utm_source=generator"
   },
   {
     "title": "Soar of the Wren",
@@ -23,7 +21,6 @@
     "links": {
       "spotify": "https://open.spotify.com/track/4tSOs76MVM9e3qCtc4BtjD"
     },
-    "spotifyEmbed": "https://open.spotify.com/embed/track/4tSOs76MVM9e3qCtc4BtjD?utm_source=generator"
   },
   {
     "type": "album",
@@ -32,7 +29,6 @@
     "links": {
       "spotify": "https://open.spotify.com/album/4iUvT7GoRm3pZzfac3hlwt?si=vEFlyoJGTAi6rkiU06Aq5A"
     },
-    "spotifyEmbed": "https://open.spotify.com/embed/album/4iUvT7GoRm3pZzfac3hlwt?utm_source=generator",
     "tracks": [
       "The Cacophony of Captain Duckfoot",
       "Tempest of the Northern Tide",
