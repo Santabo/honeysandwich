@@ -222,7 +222,7 @@
 
         const trackListHtml = song.type === 'album' && song.tracks ? `
           <ul class="album-tracks">
-            ${song.tracks.map(track => `<li>${track}</li>`).join('')}
+            ${song.tracks.map((track, index) => `<li>${index + 1}. ${track}</li>`).join('')}
           </ul>` : '';
         
         const musicLinksHtml = Object.entries(song.links).filter(([, value]) => value).map(([key, value]) => `
