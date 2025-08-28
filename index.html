@@ -1,383 +1,124 @@
-/* --- Variables and Base Styles --- */
-:root {
-    --bg-primary: #0a0a0a;
-    --bg-secondary: #121212;
-    --bg-card: #1c1c1c;
-    --bg-card-hover: #2a2a2a;
-    --text-light: #f0f0f0;
-    --text-secondary: #a0a0a0;
-    --accent: #EBA937;
-    --btn-spotify: #1DB954;
-    --btn-soundcloud: #ff5500;
-    --btn-deezer: #ff0000;
-    --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 15px rgba(235, 169, 55, 0.4);
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Honey Sandwich - AI Generated Music">
+    <title>Honey Sandwich - AI Music</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Bebas+Neue&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-* {
-    box-sizing: border-box;
-    max-width: 100%;
-    overflow-wrap: break-word;
-}
+<header class="hero-header">
+    <div class="header-content">
+        <h1>Honey Sandwich</h1>
+        <p>AI-Generated Music</p>
+    </div>
+</header>
 
-body {
-    font-family: 'Montserrat', sans-serif;
-    background: var(--bg-primary);
-    color: var(--text-light);
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-}
+<main class="container">
+    <section class="music-section">
+        <h2>Featured Music</h2>
+        <ul class="music-list" id="music-list">
+            </ul>
+    </section>
+</main>
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-}
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2025 Honey Sandwich. All rights reserved.</p>
+        <p>For permissions, contact on Discord: 
+            <a href="https://discord.com/users/789872551731527690" target="_blank" rel="noopener" class="discord-link">
+                <i class="fab fa-discord"></i> Discord Link
+            </a>
+        </p>
+    </div>
+</footer>
 
-/* --- Hero Header --- */
-.hero-header {
-    background: linear-gradient(135deg, #EBA937, #d4952d);
-    color: #fff;
-    padding: 6rem 1rem;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-    animation: fadeIn 1s ease-in-out;
-}
+<script>
+    async function loadSongs() {
+        try {
+            const res = await fetch('/songs.json');
+            const songs = await res.json();
+            const list = document.getElementById('music-list');
 
-.hero-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="p" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M0 0h50v50H0z" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p)"/></svg>') no-repeat;
-    opacity: 0.1;
-    z-index: 1;
-}
+            const icons = {
+                soundcloud: `<i class="fa-brands fa-soundcloud"></i>`,
+                spotify: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.3 0 12c0 6.6 5.4 12 12 12s12-5.4 12-12c0-6.7-5.4-12-12-12zm5.5 17.3c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.8-9.5-1-.3.1-.7-.1-.8-.4s.1-.7.4-.8c4.1-.9 7.7-.6 10.5 1.1.3.2.4.6.3.9zm1.2-2.8c-.3.4-.8.5-1.2.3-2.9-1.7-7.4-2.2-10.9-1.2-.4.1-.9-.1-1-.5s.1-.9.5-1c3.9-1.1 8.9-.6 12.2 1.4.4.2.5.8.3 1.2zm.1-3c-3.5-2.1-9.3-2.3-12.6-1.3-.5.2-1.1-.1-1.3-.6-.2-.5.1-1.1.6-1.3 3.8-1.1 10.3-.8 14.4 1.5.5.3.6.9.3 1.4-.2.5-.8.6-1.4.3z"/></svg>`,
+                deezer: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h8v2H3v-2zm0 4h16v2H3v-2zm0 4h10v2H3v-2z"/></svg>`
+            };
+            
+            songs.forEach(song => {
+                const li = document.createElement('li');
+                li.className = 'music-card';
 
-.header-content {
-    position: relative;
-    z-index: 2;
-}
+                const trackListHtml = song.type === 'album' && song.tracks ? `
+                    <div class="album-details">
+                        <span class="track-count">${song.tracks.length} tracks</span>
+                        <ul class="album-tracks">
+                            ${song.tracks.map((track, index) => `<li>${index + 1}. ${track}</li>`).join('')}
+                        </ul>
+                    </div>` : '';
+                
+                const musicLinksHtml = Object.entries(song.links).filter(([, value]) => value).map(([key, value]) => `
+                    <a href="${value}" target="_blank" rel="noopener" class="btn-${key}">
+                        ${icons[key] || ''} <span>${key.charAt(0).toUpperCase() + key.slice(1)}</span>
+                    </a>
+                `).join('');
 
-.hero-header h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: clamp(3rem, 8vw, 5rem);
-    font-weight: 700;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    margin: 0;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-}
+                li.innerHTML = `
+                    <div class="music-card-header">
+                        ${song.cover ? `<img src="${song.cover}" alt="Cover art for ${song.title}" class="album-cover">` : ''}
+                        <div class="music-info">
+                            <h3>${song.title}</h3>
+                            <p class="artist">Honey Sandwich</p>
+                            <p class="release-date">Released: ${song.release_date || 'N/A'}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="music-card-body">
+                        ${trackListHtml}
+                        <div class="music-links">${musicLinksHtml}</div>
+                    </div>
 
-.hero-header p {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    font-weight: 500;
-    margin-top: 0.5rem;
-    color: #fff;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
-}
+                    <div class="license-container">
+                        <div class="license-box">
+                            <span class="license-summary">License Details<i class="fa-solid fa-chevron-down"></i></span>
+                            <div class="license-details">
+                                <p>This is an original song by <strong>Honey Sandwich</strong>.</p>
+                                <p>Licensed under Honey Sandwich Permissions:</p>
+                                <ul>
+                                    <li>Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).</li>
+                                    <li>No derivative works are allowed unless given explicit permission.</li>
+                                    <li>Use for revenue purposes requires permission via Discord.</li>
+                                </ul>
+                                <a href="license.html" target="_blank" rel="noopener" class="full-license-link">Full License Details</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(li);
+            });
 
-/* --- Music Section --- */
-.music-section h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    color: var(--accent);
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    text-align: center;
-    margin-bottom: 2rem;
-    letter-spacing: 2px;
-}
+            // Add a listener to toggle the license box
+            list.querySelectorAll('.license-summary').forEach(summary => {
+                summary.addEventListener('click', () => {
+                    summary.closest('.license-box').classList.toggle('active');
+                });
+            });
 
-.music-list {
-    display: grid;
-    grid-template-columns: 1fr; /* stack vertically by default */
-    gap: 2rem;
-    list-style: none;
-    padding: 0;
-}
-
-@media (min-width: 768px) {
-    .music-list {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        } catch (err) {
+            console.error("Error loading songs:", err);
+            document.getElementById('music-list').innerHTML = '<p class="error-message">Failed to load music. Please try again later.</p>';
+        }
     }
-}
 
-.music-card {
-    background: var(--bg-card);
-    border-radius: 16px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: var(--shadow-dark);
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    overflow: visible;
-    animation: fadeIn 0.8s ease-in-out backwards;
-}
+    loadSongs();
+</script>
 
-.music-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-dark), var(--shadow-glow);
-}
-
-.music-card-header {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.album-cover {
-    width: 180px;
-    height: 180px;
-    border-radius: 12px;
-    object-fit: cover;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    transition: transform 0.3s ease;
-}
-
-.music-card:hover .album-cover {
-    transform: scale(1.05);
-}
-
-.music-info {
-    margin-top: 1rem;
-    text-align: center;
-}
-
-.music-info h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    margin: 0 0 0.5rem 0;
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    letter-spacing: 1.5px;
-    color: var(--text-light);
-}
-
-.music-info .artist, .music-info .release-date {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin: 0;
-}
-
-.music-card-body {
-    padding: 0 1.5rem 1.5rem;
-}
-
-.album-details {
-    margin-top: 1rem;
-}
-
-.track-count {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    font-style: italic;
-}
-
-.album-tracks {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    text-align: center;
-}
-
-.album-tracks li {
-    padding: 4px 0;
-}
-
-/* --- Links and Buttons --- */
-.music-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 1.5rem;
-}
-
-.music-links a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 20px;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    font-size: 0.9rem;
-    color: var(--text-light);
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.music-links a:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
-}
-
-.btn-spotify { background: var(--btn-spotify); }
-.btn-soundcloud { background: var(--btn-soundcloud); }
-.btn-deezer { background: var(--btn-deezer); }
-
-.music-links i, .music-links svg {
-    font-size: 20px;
-}
-
-.music-links span {
-    display: none;
-}
-@media (min-width: 600px) {
-    .music-links span {
-        display: inline;
-    }
-}
-
-/* --- License Accordion --- */
-.license-container {
-    width: 100%;
-    padding: 1.5rem 0 0 0;
-    background: var(--bg-secondary);
-}
-
-.license-box {
-    border-radius: 8px;
-    border: 1px solid #333;
-    transition: all 0.3s ease;
-    overflow: hidden;
-}
-
-.license-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--text-light);
-    font-size: 0.9rem;
-    background: #181818;
-}
-
-.license-summary i {
-    transition: transform 0.3s ease;
-}
-
-.license-box.active .license-summary i {
-    transform: rotate(180deg);
-}
-
-.license-details {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
-    padding: 0 1rem;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-}
-
-.license-box.active .license-details {
-    max-height: 1000px; 
-    padding: 1rem;
-}
-
-.license-details ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 10px 0;
-}
-
-.license-details li {
-    position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 5px;
-}
-
-.license-details li::before {
-    content: "•";
-    color: var(--accent);
-    font-size: 1.2rem;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.full-license-link {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 600;
-    display: block;
-    margin-top: 1rem;
-}
-
-.full-license-link:hover {
-    text-decoration: underline;
-}
-
-/* --- Footer --- */
-.footer {
-    background: var(--bg-secondary);
-    color: #555;
-    padding: 2rem 1rem;
-    text-align: center;
-    font-size: 0.8rem;
-    letter-spacing: 0.5px;
-    border-top: 1px solid #222;
-}
-
-.footer-content p {
-    margin: 0.5rem 0;
-}
-
-.discord-link {
-    color: #5865F2;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-.discord-link:hover {
-    color: #7289da;
-}
-
-/* --- Responsive Card Layout --- */
-@media (min-width: 768px) {
-    .music-card {
-        flex-direction: row;
-        text-align: left;
-    }
-    .music-card-header {
-        flex-direction: row;
-        align-items: flex-start;
-        padding-right: 1.5rem;
-    }
-    .album-cover {
-        margin-right: 1.5rem;
-        margin-bottom: 0;
-    }
-    .music-info {
-        margin-top: 0;
-    }
-    .music-links {
-        justify-content: flex-start;
-    }
-    .album-tracks {
-        text-align: left;
-    }
-}
-
-/* --- Animations --- */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.music-card:nth-child(1) { animation-delay: 0.1s; }
-.music-card:nth-child(2) { animation-delay: 0.2s; }
-.music-card:nth-child(3) { animation-delay: 0.3s; }
-
-img, video {
-    max-width: 100%;
-    height: auto;
-}
+</body>
+</html>
