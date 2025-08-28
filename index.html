@@ -1,123 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Honey Sandwich - AI Generated Music">
-    <title>Honey Sandwich - AI Music</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Bebas+Neue&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Honey Sandwich - AI Generated Music">
+<title>Honey Sandwich - AI Music</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Bebas+Neue&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="hero-header">
-    <div class="header-content">
-        <h1>Honey Sandwich</h1>
-        <p>AI-Generated Music</p>
-    </div>
+<div class="header-content">
+<h1>Honey Sandwich</h1>
+<p>AI-Generated Music</p>
+</div>
 </header>
 
 <main class="container">
-    <section class="music-section">
-        <h2>Featured Music</h2>
-        <ul class="music-list" id="music-list">
-            </ul>
-    </section>
+<section class="music-section">
+<h2>Featured Music</h2>
+<ul class="music-list" id="music-list">
+</ul>
+</section>
 </main>
 
 <footer class="footer">
-    <div class="footer-content">
-        <p>&copy; 2025 Honey Sandwich. All rights reserved.</p>
-        <p>For permissions, contact on Discord: 
-            <a href="https://discord.com/users/789872551731527690" target="_blank" rel="noopener" class="discord-link">
-                <i class="fab fa-discord"></i> Discord Link
-            </a>
-        </p>
-    </div>
+<div class="footer-content">
+<p>&copy; 2025 Honey Sandwich. All rights reserved.</p>
+<p>For permissions, contact on Discord: 
+<a href="https://discord.com/users/789872551731527690" target="_blank" rel="noopener" class="discord-link">
+<i class="fab fa-discord"></i> Discord Link
+</a>
+</p>
+</div>
 </footer>
 
 <script>
-    async function loadSongs() {
-        try {
-            const res = await fetch('/songs.json');
-            const songs = await res.json();
-            const list = document.getElementById('music-list');
+async function loadSongs() {
+try {
+const res = await fetch('/songs.json');
+const songs = await res.json();
+const list = document.getElementById('music-list');
 
-            const icons = {
-                soundcloud: `<i class="fa-brands fa-soundcloud"></i>`,
-                spotify: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.3 0 12c0 6.6 5.4 12 12 12s12-5.4 12-12c0-6.7-5.4-12-12-12zm5.5 17.3c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.8-9.5-1-.3.1-.7-.1-.8-.4s.1-.7.4-.8c4.1-.9 7.7-.6 10.5 1.1.3.2.4.6.3.9zm1.2-2.8c-.3.4-.8.5-1.2.3-2.9-1.7-7.4-2.2-10.9-1.2-.4.1-.9-.1-1-.5s.1-.9.5-1c3.9-1.1 8.9-.6 12.2 1.4.4.2.5.8.3 1.2zm.1-3c-3.5-2.1-9.3-2.3-12.6-1.3-.5.2-1.1-.1-1.3-.6-.2-.5.1-1.1.6-1.3 3.8-1.1 10.3-.8 14.4 1.5.5.3.6.9.3 1.4-.2.5-.8.6-1.4.3z"/></svg>`,
-                deezer: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h8v2H3v-2zm0 4h16v2H3v-2zm0 4h10v2H3v-2z"/></svg>`
-            };
-            
-            songs.forEach(song => {
-                const li = document.createElement('li');
-                li.className = 'music-card';
+const icons = {
+soundcloud: `<i class="fa-brands fa-soundcloud"></i>`,
+spotify: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.3 0 12c0 6.6 5.4 12 12 12s12-5.4 12-12c0-6.7-5.4-12-12-12zm5.5 17.3c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.8-9.5-1-.3.1-.7-.1-.8-.4s.1-.7.4-.8c4.1-.9 7.7-.6 10.5 1.1.3.2.4.6.3.9zm1.2-2.8c-.3.4-.8.5-1.2.3-2.9-1.7-7.4-2.2-10.9-1.2-.4.1-.9-.1-1-.5s.1-.9.5-1c3.9-1.1 8.9-.6 12.2 1.4.4.2.5.8.3 1.2zm.1-3c-3.5-2.1-9.3-2.3-12.6-1.3-.5.2-1.1-.1-1.3-.6-.2-.5.1-1.1.6-1.3 3.8-1.1 10.3-.8 14.4 1.5.5.3.6.9.3 1.4-.2.5-.8.6-1.4.3z"/></svg>`,
+deezer: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h8v2H3v-2zm0 4h16v2H3v-2zm0 4h10v2H3v-2z"/></svg>`
+};
 
-                const trackListHtml = song.type === 'album' && song.tracks ? `
-                    <div class="album-details">
-                        <span class="track-count">${song.tracks.length} tracks</span>
-                        <ul class="album-tracks">
-                            ${song.tracks.map((track, index) => `<li>${index + 1}. ${track}</li>`).join('')}
-                        </ul>
-                    </div>` : '';
-                
-                const musicLinksHtml = Object.entries(song.links).filter(([, value]) => value).map(([key, value]) => `
-                    <a href="${value}" target="_blank" rel="noopener" class="btn-${key}">
-                        ${icons[key] || ''} <span>${key.charAt(0).toUpperCase() + key.slice(1)}</span>
-                    </a>
-                `).join('');
+songs.forEach(song => {
+const li = document.createElement('li');
+li.className = 'music-card';
 
-                li.innerHTML = `
-                    <div class="music-card-header">
-                        ${song.cover ? `<img src="${song.cover}" alt="Cover art for ${song.title}" class="album-cover">` : ''}
-                        <div class="music-info">
-                            <h3>${song.title}</h3>
-                            <p class="artist">Honey Sandwich</p>
-                            <p class="release-date">Released: ${song.release_date || 'N/A'}</p>
-                        </div>
-                    </div>
-                    
-                    <div class="music-card-body">
-                        ${trackListHtml}
-                        <div class="music-links">${musicLinksHtml}</div>
-                    </div>
+const trackListHtml = song.type === 'album' && song.tracks ? `
+<div class="album-details">
+<span class="track-count">${song.tracks.length} tracks</span>
+<ul class="album-tracks">
+${song.tracks.map((track, index) => `<li>${index + 1}. ${track}</li>`).join('')}
+</ul>
+</div>` : '';
 
-                    <div class="license-container">
-                        <div class="license-box">
-                            <span class="license-summary">License Details<i class="fa-solid fa-chevron-down"></i></span>
-                            <div class="license-details">
-                                <p>This is an original song by <strong>Honey Sandwich</strong>.</p>
-                                <p>Licensed under Honey Sandwich Permissions:</p>
-                                <ul>
-                                    <li>Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).</li>
-                                    <li>No derivative works are allowed unless given explicit permission.</li>
-                                    <li>Use for revenue purposes requires permission via Discord.</li>
-                                </ul>
-                                <a href="license.html" target="_blank" rel="noopener" class="full-license-link">Full License Details</a>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                list.appendChild(li);
-            });
+const musicLinksHtml = Object.entries(song.links).filter(([, value]) => value).map(([key, value]) => `
+<a href="${value}" target="_blank" rel="noopener" class="btn-${key}">
+${icons[key] || ''} <span>${key.charAt(0).toUpperCase() + key.slice(1)}</span>
+</a>
+`).join('');
 
-            // Add a listener to toggle the license box
-            list.querySelectorAll('.license-summary').forEach(summary => {
-                summary.addEventListener('click', () => {
-                    summary.closest('.license-box').classList.toggle('active');
-                });
-            });
+li.innerHTML = `
+<div class="music-card-header">
+${song.cover ? `<img src="${song.cover}" alt="Cover art for ${song.title}" class="album-cover">` : ''}
+<div class="music-info">
+<h3>${song.title}</h3>
+<p class="artist">Honey Sandwich</p>
+<p class="release-date">Released: ${song.release_date || 'N/A'}</p>
+</div>
+</div>
 
-        } catch (err) {
-            console.error("Error loading songs:", err);
-            document.getElementById('music-list').innerHTML = '<p class="error-message">Failed to load music. Please try again later.</p>';
-        }
-    }
+<div class="music-card-body">
+${trackListHtml}
+<div class="music-links">${musicLinksHtml}</div>
+</div>
 
-    loadSongs();
+<div class="license-container">
+<div class="license-box">
+<span class="license-summary">License Details<i class="fa-solid fa-chevron-down"></i></span>
+<div class="license-details">
+<p>This is an original song by <strong>Honey Sandwich</strong>.</p>
+<p>Licensed under Honey Sandwich Permissions:</p>
+<ul>
+<li>Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).</li>
+<li>No derivative works are allowed unless given explicit permission.</li>
+<li>Use for revenue purposes requires permission via Discord.</li>
+</ul>
+<a href="license.html" target="_blank" rel="noopener" class="full-license-link">Full License Details</a>
+</div>
+</div>
+</div>
+`;
+list.appendChild(li);
+});
+
+// Add a listener to toggle the license box
+list.querySelectorAll('.license-summary').forEach(summary => {
+summary.addEventListener('click', () => {
+summary.closest('.license-box').classList.toggle('active');
+});
+});
+
+} catch (err) {
+console.error("Error loading songs:", err);
+document.getElementById('music-list').innerHTML = '<p class="error-message">Failed to load music. Please try again later.</p>';
+}
+}
+
+loadSongs();
 </script>
 
 </body>
