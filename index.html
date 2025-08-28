@@ -7,13 +7,13 @@
 <title>Honey Sandwich - AI Music</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root {
     --bg-primary: #0a0a0a;
     --bg-card: #141414;
-    --bg-card-hover: #1e1e1e;
+    --bg-card-hover: #222;
     --text-light: #f0f0f0;
     --text-secondary: #999;
     --accent: #EBA937;
@@ -35,11 +35,12 @@
   header {
     background: linear-gradient(135deg, #EBA937, #d4952d);
     padding: 2.5rem 1rem;
-    font-size: clamp(1.8rem, 6vw, 3rem);
-    font-weight: 700;
-    letter-spacing: 2px;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   }
   .container {
     max-width: 1200px;
@@ -47,15 +48,15 @@
     padding: 20px;
   }
   h2 {
+    font-family: 'Bebas Neue', sans-serif;
     color: var(--accent);
-    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     margin-bottom: 40px;
-    text-transform: uppercase;
     letter-spacing: 2px;
   }
   .music-list {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
     list-style: none;
     padding: 0;
@@ -63,7 +64,6 @@
   .music-card {
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 25px;
     background: var(--bg-card);
     border-radius: 16px;
@@ -78,7 +78,7 @@
   }
   .music-card:hover {
     background: var(--bg-card-hover);
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.02);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
   }
   .music-info-container {
@@ -86,14 +86,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
     width: 100%;
   }
   @media(min-width: 768px) {
     .music-info-container {
       flex-direction: row;
       align-items: flex-start;
-      margin-bottom: 0;
     }
   }
   .music-info-container img {
@@ -127,9 +125,10 @@
     }
   }
   .text-content h3 {
+    font-family: 'Bebas Neue', sans-serif;
     margin: 0 0 10px 0;
-    font-size: clamp(1.2rem, 3vw, 1.8rem);
-    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    letter-spacing: 1.5px;
   }
   .album-tracks {
     list-style-type: none;
@@ -174,16 +173,20 @@
     transition: all 0.3s ease;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   }
+  .music-links a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
   .music-links i, .music-links svg {
     font-size: 20px;
     color: var(--text-light);
   }
   .btn-spotify { background: var(--btn-spotify); color: var(--text-light); }
-  .btn-spotify:hover { background: var(--btn-spotify-hover); transform: scale(1.05); }
+  .btn-spotify:hover { background: var(--btn-spotify-hover); }
   .btn-soundcloud { background: var(--btn-soundcloud); color: var(--text-light); }
-  .btn-soundcloud:hover { background: var(--btn-soundcloud-hover); transform: scale(1.05); }
+  .btn-soundcloud:hover { background: var(--btn-soundcloud-hover); }
   .btn-deezer { background: var(--btn-deezer); color: var(--text-light); }
-  .btn-deezer:hover { background: var(--btn-deezer-hover); transform: scale(1.05); }
+  .btn-deezer:hover { background: var(--btn-deezer-hover); }
   
   .license-container {
     width: 100%;
@@ -192,6 +195,7 @@
   .license-box {
     background: #1e1e1e;
     border-radius: 12px;
+    overflow: hidden;
   }
   .license-summary {
     display: flex;
@@ -217,15 +221,19 @@
     transform: rotate(180deg);
   }
   .license-details {
-    display: none;
-    padding: 0 18px 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    padding: 0 18px;
     font-size: 0.85rem;
     color: var(--text-secondary);
     line-height: 1.6;
     text-align: left;
   }
   .license-box.active .license-details {
-    display: block;
+    max-height: 500px; /* Adjust this value if content is taller */
+    padding-bottom: 18px;
+    transition: max-height 0.5s ease-in;
   }
   .license-details a {
     color: var(--accent);
