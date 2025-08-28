@@ -1,24 +1,20 @@
-/* --- Variables and Base Styles --- */
+/* --- Variables --- */
 :root {
-    --bg-primary: #0a0a0a;
-    --bg-secondary: #121212;
-    --bg-card: #1c1c1c;
-    --bg-card-hover: #2a2a2a;
-    --text-light: #f0f0f0;
-    --text-secondary: #a0a0a0;
+    --bg-primary: #0b0b0b;
+    --bg-secondary: #1a1a1a;
+    --bg-card: #1f1f1f;
+    --text-primary: #f0f0f0;
+    --text-secondary: #aaaaaa;
     --accent: #EBA937;
-    --accent-light: #f3c46b;
     --btn-spotify: #1DB954;
     --btn-soundcloud: #ff5500;
-    --btn-deezer: #ff0000;
-    --shadow-dark: 0 6px 25px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 20px rgba(235, 169, 55, 0.4);
+    --shadow-dark: 0 6px 25px rgba(0,0,0,0.6);
+    --shadow-glow: 0 0 20px rgba(235,169,55,0.4);
 }
 
+/* --- Global --- */
 * {
     box-sizing: border-box;
-    max-width: 100%;
-    overflow-wrap: break-word;
     margin: 0;
     padding: 0;
 }
@@ -26,9 +22,8 @@
 body {
     font-family: 'Montserrat', sans-serif;
     background: var(--bg-primary);
-    color: var(--text-light);
+    color: var(--text-primary);
     line-height: 1.6;
-    font-size: 16px;
 }
 
 /* --- Container --- */
@@ -38,106 +33,82 @@ body {
     padding: 2rem 1rem;
 }
 
-/* --- Hero Header --- */
+/* --- Hero --- */
 .hero-header {
-    background: linear-gradient(135deg, #EBA937, #d4952d);
-    color: #fff;
-    padding: 6rem 1rem 4rem 1rem;
+    background: linear-gradient(135deg,#EBA937,#d4952d);
+    padding: 6rem 1rem 4rem;
     text-align: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
-    animation: fadeIn 1s ease-in-out;
-}
-
-.hero-header::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="p" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M0 0h50v50H0z" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p)"/></svg>') no-repeat;
-    opacity: 0.08;
-    z-index: 1;
-}
-
-.header-content {
-    position: relative;
-    z-index: 2;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
 }
 
 .hero-header h1 {
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(3rem, 8vw, 5rem);
-    font-weight: 700;
     letter-spacing: 5px;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
     text-shadow: 3px 3px 15px rgba(0,0,0,0.6);
 }
 
 .hero-header p {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    font-weight: 500;
-    color: #fff;
+    font-size: clamp(1rem,3vw,1.5rem);
     text-shadow: 1px 1px 8px rgba(0,0,0,0.5);
 }
 
 /* --- Music Section --- */
 .music-section h2 {
     font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem,5vw,3.5rem);
     color: var(--accent);
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
     text-align: center;
     margin-bottom: 3rem;
-    letter-spacing: 2px;
 }
 
-/* --- Music Cards --- */
+/* --- Music List --- */
 .music-list {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2.5rem;
-    list-style: none;
-    padding: 0;
 }
 
 @media(min-width: 768px) {
     .music-list {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
     }
 }
 
+/* --- Card --- */
 .music-card {
     background: var(--bg-card);
     border-radius: 20px;
-    box-shadow: var(--shadow-dark);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: var(--shadow-dark);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .music-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
     box-shadow: var(--shadow-dark), var(--shadow-glow);
 }
 
+/* --- Card Header --- */
 .music-card-header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem 1rem 1rem 1rem;
+    padding: 1.5rem 1rem;
 }
 
 .album-cover {
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
     border-radius: 16px;
-    object-fit: cover;
     box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease;
+    margin-bottom: 1rem;
+    transition: transform 0.3s;
 }
 
 .music-card:hover .album-cover {
@@ -146,14 +117,12 @@ body {
 
 .music-info {
     text-align: center;
-    margin-top: 1rem;
 }
 
 .music-info h3 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.8rem, 3vw, 2.2rem);
+    font-size: clamp(1.8rem,3vw,2.2rem);
     margin-bottom: 0.3rem;
-    color: var(--text-light);
 }
 
 .music-info .artist,
@@ -164,7 +133,7 @@ body {
 
 /* --- Card Body --- */
 .music-card-body {
-    padding: 1.5rem 1.5rem 2rem 1.5rem;
+    padding: 1.5rem;
 }
 
 /* Tracks */
@@ -174,155 +143,63 @@ body {
 
 .track-count {
     font-size: 0.9rem;
-    font-style: italic;
-    color: var(--accent-light);
+    color: var(--accent);
     margin-bottom: 0.5rem;
 }
 
 .album-tracks li {
-    padding: 3px 0;
     font-size: 0.9rem;
     color: var(--text-secondary);
+    padding: 2px 0;
 }
 
-/* --- Music Links --- */
+/* --- Links --- */
 .music-links {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     margin-top: 1.5rem;
 }
 
 .music-links a {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 22px;
+    padding: 10px 18px;
     border-radius: 50px;
     font-weight: 600;
-    font-size: 0.9rem;
+    color: var(--text-primary);
     text-decoration: none;
-    color: var(--text-light);
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+    background: var(--accent);
+    transition: transform 0.3s, opacity 0.3s;
 }
 
 .music-links a:hover {
-    transform: translateY(-2px) scale(1.02);
+    transform: translateY(-2px) scale(1.03);
     opacity: 0.95;
 }
 
-.btn-spotify { background: var(--btn-spotify); }
-.btn-soundcloud { background: var(--btn-soundcloud); }
-.btn-deezer { background: var(--btn-deezer); }
-
-/* --- License Accordion --- */
-.license-container {
-    margin-top: 2rem;
-}
-
-.license-box {
-    border-radius: 12px;
-    border: 1px solid #333;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    background: var(--bg-secondary);
-}
-
-.license-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.2rem;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.95rem;
-    background: #1a1a1a;
-    color: var(--text-light);
-    transition: background 0.3s ease;
-}
-
-.license-summary:hover {
-    background: #2a2a2a;
-}
-
-.license-summary i {
-    transition: transform 0.3s ease;
-}
-
-.license-box.active .license-summary i {
-    transform: rotate(180deg);
-}
-
-.license-details {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.4s ease;
-    padding: 0 1.2rem;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-}
-
-.license-box.active .license-details {
-    max-height: 1200px;
-    padding: 1rem 1.2rem;
-}
-
-.license-details ul {
-    list-style: none;
-    margin: 10px 0;
-    padding-left: 0;
-}
-
-.license-details li {
-    position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 5px;
-}
-
-.license-details li::before {
-    content: "•";
-    color: var(--accent);
-    font-size: 1.2rem;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.full-license-link {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 600;
-    display: block;
-    margin-top: 1rem;
-}
-
-.full-license-link:hover {
-    text-decoration: underline;
+/* --- Spotify Embed --- */
+.spotify-embed {
+    margin-top: 1.5rem;
+    width: 100%;
+    border-radius: 14px;
 }
 
 /* --- Footer --- */
 .footer {
     background: var(--bg-secondary);
-    color: #777;
-    padding: 3rem 1rem;
     text-align: center;
+    padding: 3rem 1rem;
+    color: #777;
     font-size: 0.85rem;
-    letter-spacing: 0.5px;
-    border-top: 1px solid #222;
-}
-
-.footer-content p {
-    margin: 0.5rem 0;
 }
 
 .discord-link {
     color: #5865F2;
     font-weight: 600;
     text-decoration: none;
-    transition: color 0.3s ease;
 }
 
 .discord-link:hover {
@@ -330,49 +207,20 @@ body {
 }
 
 /* --- Responsive Cards --- */
-@media(min-width: 768px) {
+@media(min-width:768px){
     .music-card {
         flex-direction: row;
         align-items: flex-start;
     }
 
     .music-card-header {
-        flex-direction: row;
-        align-items: flex-start;
+        flex-direction: column;
+        align-items: center;
         padding: 2rem;
     }
 
-    .album-cover {
-        margin-right: 2rem;
-        margin-bottom: 0;
-    }
-
     .music-info {
+        text-align: left;
         margin-top: 0;
-        text-align: left;
     }
-
-    .music-links {
-        justify-content: flex-start;
-    }
-
-    .album-tracks {
-        text-align: left;
-    }
-}
-
-/* --- Animations --- */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.music-card:nth-child(1) { animation-delay: 0.1s; }
-.music-card:nth-child(2) { animation-delay: 0.2s; }
-.music-card:nth-child(3) { animation-delay: 0.3s; }
-
-/* --- Images and Videos --- */
-img, video {
-    max-width: 100%;
-    height: auto;
 }
