@@ -16,8 +16,6 @@
 
 * {
     box-sizing: border-box;
-    max-width: 100%;
-    overflow-wrap: break-word;
 }
 
 body {
@@ -42,9 +40,9 @@ body {
     padding: 6rem 1rem;
     text-align: center;
     position: relative;
+    overflow: hidden;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
     animation: fadeIn 1s ease-in-out;
-    overflow: visible;
 }
 
 .hero-header::before {
@@ -103,13 +101,12 @@ body {
 .music-card {
     background: var(--bg-card);
     border-radius: 16px;
+    overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: var(--shadow-dark);
     display: flex;
     flex-direction: column;
     text-align: center;
-    overflow: visible;
-    animation: fadeIn 0.8s ease-in-out backwards;
 }
 
 .music-card:hover {
@@ -238,9 +235,9 @@ body {
 
 .license-box {
     border-radius: 8px;
+    overflow: hidden;
     border: 1px solid #333;
     transition: all 0.3s ease;
-    overflow: visible;
 }
 
 .license-summary {
@@ -274,7 +271,7 @@ body {
 }
 
 .license-box.active .license-details {
-    max-height: 1000px; /* large enough for content */
+    max-height: 500px;
     padding: 1rem;
     transition: max-height 0.5s ease-in, padding 0.5s ease-in;
 }
@@ -376,12 +373,10 @@ body {
         transform: translateY(0);
     }
 }
+.music-card {
+    animation: fadeIn 0.8s ease-in-out backwards;
+}
 .music-card:nth-child(1) { animation-delay: 0.1s; }
 .music-card:nth-child(2) { animation-delay: 0.2s; }
 .music-card:nth-child(3) { animation-delay: 0.3s; }
 /* Add more for more cards */
-
-img, video {
-    max-width: 100%;
-    height: auto;
-}
