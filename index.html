@@ -5,13 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Honey Sandwich - AI Generated Music">
 <title>Honey Sandwich - AI Music</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-dark: #1e1e1e;
-    --bg-card: #2a2a2a;
-    --bg-card-hover: #3a3a3a;
+    --bg-dark: #121212;
+    --bg-card: #181818;
+    --bg-card-hover: #282828;
     --text-light: #fff;
-    --text-secondary: #bbb;
+    --text-secondary: #b3b3b3;
     --accent: #EBA937;
     --btn-spotify: #1DB954;
     --btn-spotify-hover: #1ed760;
@@ -21,105 +24,109 @@
     --btn-deezer-hover: #ff4d4d;
   }
   body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: var(--bg-dark);
     color: var(--text-light);
     text-align: center;
     margin: 0;
+    padding: 0;
   }
   header {
     background: var(--accent);
-    padding: 20px;
-    font-size: 32px;
-    font-weight: 600;
+    padding: 2rem 1rem;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
   .container {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 30px;
-    background: var(--bg-card);
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
   }
   h2 {
     color: var(--accent);
-    margin-bottom: 20px;
+    font-size: 2rem;
+    margin-bottom: 30px;
   }
   .music-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
     list-style: none;
     padding: 0;
-    margin: 0;
   }
   .music-card {
     display: flex;
     flex-direction: column;
-    margin: 20px 0;
     padding: 20px;
-    background: var(--bg-card-hover);
+    background: var(--bg-card);
     border-radius: 12px;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   }
   .music-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
   .music-info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    text-align: center;
   }
   .music-info img {
     width: 150px;
     height: 150px;
     border-radius: 8px;
     object-fit: cover;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    margin-bottom: 15px;
   }
   .music-info h3 {
     margin: 0;
-    font-size: 24px;
-    color: var(--text-light);
+    font-size: 1.5rem;
+    font-weight: 600;
   }
   .album-tracks {
     list-style-type: none;
     padding: 0;
-    margin-top: 10px;
-    font-size: 14px;
+    margin-top: 15px;
+    font-size: 0.9rem;
     color: var(--text-secondary);
+    text-align: left;
+    width: 100%;
   }
   .album-tracks li {
-    margin: 5px 0;
+    padding: 4px 0;
   }
   .embed-container {
     width: 100%;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     margin-top: 20px;
   }
   .embed-container iframe {
     width: 100%;
     border: none;
     border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   }
   .music-links {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
     margin-top: 20px;
   }
   .music-links a {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 16px;
-    border-radius: 8px;
+    padding: 10px 18px;
+    border-radius: 50px;
     font-weight: 600;
     text-decoration: none;
-    font-size: 14px;
-    transition: all 0.25s ease;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
   }
   .music-links svg {
     width: 20px;
@@ -127,43 +134,47 @@
     fill: var(--text-light);
   }
   .btn-spotify { background: var(--btn-spotify); color: var(--text-light); }
-  .btn-spotify:hover { background: var(--btn-spotify-hover); }
+  .btn-spotify:hover { background: var(--btn-spotify-hover); transform: scale(1.05); }
   .btn-soundcloud { background: var(--btn-soundcloud); color: var(--text-light); }
-  .btn-soundcloud:hover { background: var(--btn-soundcloud-hover); }
+  .btn-soundcloud:hover { background: var(--btn-soundcloud-hover); transform: scale(1.05); }
   .btn-deezer { background: var(--btn-deezer); color: var(--text-light); }
-  .btn-deezer:hover { background: var(--btn-deezer-hover); }
+  .btn-deezer:hover { background: var(--btn-deezer-hover); transform: scale(1.05); }
   .license-box {
     background: #333;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #ddd;
+    padding: 18px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
     line-height: 1.6;
-    margin-top: 20px;
+    margin-top: 25px;
     text-align: left;
   }
   .license-box a {
     color: var(--accent);
     text-decoration: none;
+    font-weight: 600;
   }
   .license-box a:hover {
     text-decoration: underline;
   }
   .copyright {
-    margin: 30px 0;
-    font-size: 14px;
-    color: var(--text-secondary);
+    margin: 40px 0;
+    font-size: 0.9rem;
+    color: #888;
   }
   @media(max-width: 768px) {
-    .container { padding: 20px; }
-    .music-info { flex-direction: column; }
-    .embed-container iframe { height: 300px; }
+    .music-list {
+      grid-template-columns: 1fr;
+    }
+    .embed-container iframe {
+      height: 300px;
+    }
   }
 </style>
 </head>
 <body>
 
-<header>Honey Sandwich - AI Generated Music</header>
+<header>Honey Sandwich</header>
 
 <div class="container">
   <h2>Featured Music</h2>
@@ -194,14 +205,10 @@
 
         const embedHeight = song.type === 'album' ? 575 : 152;
         
-        let trackListHtml = '';
-        if (song.type === 'album' && song.tracks) {
-          trackListHtml = `
-            <ul class="album-tracks">
-              ${song.tracks.map(track => `<li>${track}</li>`).join('')}
-            </ul>
-          `;
-        }
+        const trackListHtml = song.type === 'album' && song.tracks ? `
+          <ul class="album-tracks">
+            ${song.tracks.map(track => `<li>${track}</li>`).join('')}
+          </ul>` : '';
         
         const musicLinksHtml = Object.entries(song.links).filter(([, value]) => value).map(([key, value]) => `
           <a href="${value}" target="_blank" rel="noopener" class="btn-${key}">
