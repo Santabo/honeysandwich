@@ -1,23 +1,15 @@
-/* --- Variables --- */
 :root {
     --bg-primary: #0b0b0b;
-    --bg-secondary: #1a1a1a;
     --bg-card: #1f1f1f;
     --text-primary: #f0f0f0;
-    --text-secondary: #aaaaaa;
+    --text-secondary: #aaa;
     --accent: #EBA937;
     --btn-spotify: #1DB954;
     --btn-soundcloud: #ff5500;
     --shadow-dark: 0 6px 25px rgba(0,0,0,0.6);
-    --shadow-glow: 0 0 20px rgba(235,169,55,0.4);
 }
 
-/* --- Global --- */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Montserrat', sans-serif;
@@ -26,36 +18,19 @@ body {
     line-height: 1.6;
 }
 
-/* --- Container --- */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-}
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
 
-/* --- Hero --- */
 .hero-header {
     background: linear-gradient(135deg,#EBA937,#d4952d);
     padding: 6rem 1rem 4rem;
     text-align: center;
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
 }
 
-.hero-header h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: clamp(3rem, 8vw, 5rem);
-    letter-spacing: 5px;
-    text-shadow: 3px 3px 15px rgba(0,0,0,0.6);
-}
+.hero-header h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(3rem,8vw,5rem); }
+.hero-header p { font-size: clamp(1rem,3vw,1.5rem); }
 
-.hero-header p {
-    font-size: clamp(1rem,3vw,1.5rem);
-    text-shadow: 1px 1px 8px rgba(0,0,0,0.5);
-}
-
-/* --- Music Section --- */
 .music-section h2 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(2.5rem,5vw,3.5rem);
@@ -64,163 +39,85 @@ body {
     margin-bottom: 3rem;
 }
 
-/* --- Music List --- */
 .music-list {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2rem;
 }
 
-@media(min-width: 768px) {
-    .music-list {
-        grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
-    }
+@media(min-width:768px){
+    .music-list { grid-template-columns: repeat(auto-fit,minmax(320px,1fr)); }
 }
 
-/* --- Card --- */
 .music-card {
     background: var(--bg-card);
     border-radius: 20px;
     overflow: hidden;
+    box-shadow: var(--shadow-dark);
     display: flex;
     flex-direction: column;
-    box-shadow: var(--shadow-dark);
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .music-card:hover {
     transform: translateY(-8px);
-    box-shadow: var(--shadow-dark), var(--shadow-glow);
+    box-shadow: var(--shadow-dark), 0 0 20px rgba(235,169,55,0.4);
 }
 
-/* --- Card Header --- */
+/* --- Header inside card --- */
 .music-card-header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1.5rem 1rem;
+    padding: 1rem;
 }
 
 .album-cover {
-    width: 200px;
-    height: 200px;
-    object-fit: contain;
+    width: 100%;
+    height: auto;
+    max-width: 300px;
     border-radius: 16px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     margin-bottom: 1rem;
-    transition: transform 0.3s;
+    flex-shrink: 0;
 }
 
-.music-card:hover .album-cover {
-    transform: scale(1.05);
-}
+/* Info */
+.music-info { text-align: center; }
+.music-info h3 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem,3vw,2.2rem); }
+.music-info .artist, .music-info .release-date { font-size: 0.95rem; color: var(--text-secondary); }
 
-.music-info {
-    text-align: center;
-}
+/* Card body */
+.music-card-body { padding: 1rem; }
 
-.music-info h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.8rem,3vw,2.2rem);
-    margin-bottom: 0.3rem;
-}
+.album-details { margin-top: 1rem; }
+.track-count { font-size: 0.9rem; color: var(--accent); margin-bottom: 0.5rem; }
+.album-tracks li { font-size: 0.9rem; color: var(--text-secondary); padding: 2px 0; }
 
-.music-info .artist,
-.music-info .release-date {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-}
-
-/* --- Card Body --- */
-.music-card-body {
-    padding: 1.5rem;
-}
-
-/* Tracks */
-.album-details {
-    margin-top: 1rem;
-}
-
-.track-count {
-    font-size: 0.9rem;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
-}
-
-.album-tracks li {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    padding: 2px 0;
-}
-
-/* --- Links --- */
+/* Links */
 .music-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 1.5rem;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 1rem;
 }
 
 .music-links a {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    border-radius: 50px;
-    font-weight: 600;
-    color: var(--text-primary);
-    text-decoration: none;
-    background: var(--accent);
-    transition: transform 0.3s, opacity 0.3s;
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 50px;
+    font-weight: 600; text-decoration: none; background: var(--accent);
+    color: var(--text-primary); transition: transform 0.3s;
 }
 
-.music-links a:hover {
-    transform: translateY(-2px) scale(1.03);
-    opacity: 0.95;
-}
+.music-links a:hover { transform: scale(1.03); }
 
-/* --- Spotify Embed --- */
-.spotify-embed {
-    margin-top: 1.5rem;
-    width: 100%;
-    border-radius: 14px;
-}
+/* Spotify Embed */
+.spotify-embed { width: 100%; max-width: 100%; height: 80px; border-radius: 12px; margin-top: 1rem; border: 0; }
 
-/* --- Footer --- */
-.footer {
-    background: var(--bg-secondary);
-    text-align: center;
-    padding: 3rem 1rem;
-    color: #777;
-    font-size: 0.85rem;
-}
+/* Footer */
+.footer { background: #1a1a1a; color: #777; padding: 3rem 1rem; text-align: center; font-size: 0.85rem; }
+.discord-link { color: #5865F2; font-weight: 600; text-decoration: none; }
+.discord-link:hover { color: #7289da; }
 
-.discord-link {
-    color: #5865F2;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.discord-link:hover {
-    color: #7289da;
-}
-
-/* --- Responsive Cards --- */
+/* Desktop layout */
 @media(min-width:768px){
-    .music-card {
-        flex-direction: row;
-        align-items: flex-start;
-    }
-
-    .music-card-header {
-        flex-direction: column;
-        align-items: center;
-        padding: 2rem;
-    }
-
-    .music-info {
-        text-align: left;
-        margin-top: 0;
-    }
+    .music-card { flex-direction: row; align-items: flex-start; }
+    .music-card-header { flex: 1; align-items: flex-start; text-align: left; padding: 1rem; }
+    .music-info { text-align: left; margin-left: 1rem; }
+    .album-cover { width: 100%; max-width: 200px; height: auto; }
 }
