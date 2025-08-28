@@ -88,7 +88,7 @@ body {
     box-shadow: var(--shadow-dark), var(--shadow-light);
 }
 
-/* --- Card Header (Album Art) --- */
+/* --- Card Header (Album Art, Title, Info & Buttons) --- */
 .music-card-header {
     display: flex;
     flex-direction: column;
@@ -102,20 +102,13 @@ body {
     height: auto;
     max-width: 300px;
     border-radius: var(--border-radius-sm);
+    margin-bottom: 1.5rem;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 
-/* --- Card Body (Title, Links & Details) --- */
-.music-card-body {
-    padding: 0 1.5rem 1.5rem;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    text-align: center; /* Center everything in the body */
-}
-
 .music-info { 
-    margin: 1.5rem 0 1rem; /* Add top and bottom margin to the info block */
+    width: 100%;
+    margin-bottom: 1.5rem;
 }
 
 .music-info h3 {
@@ -131,6 +124,14 @@ body {
     color: var(--text-secondary);
 }
 
+/* --- Card Body (Links & Details) --- */
+.music-card-body {
+    padding: 0 1.5rem 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
 
 .album-details {
     margin-top: 1rem;
@@ -248,6 +249,7 @@ body {
     
     .music-card-body {
         padding: 1.5rem;
+        text-align: left;
     }
 
     .music-links {
