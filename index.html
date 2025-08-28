@@ -1,99 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Honey Sandwich - AI Generated Music">
-    <title>Honey Sandwich - AI Music</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Bebas+Neue&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Honey Sandwich - AI Generated Music">
+    <title>Honey Sandwich - AI Music</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Bebas+Neue&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="hero-header">
-    <div class="header-content">
-        <h1>Honey Sandwich</h1>
-        <p>AI-Generated Music</p>
-    </div>
+    <div class="header-content">
+        <h1>Honey Sandwich</h1>
+        <p>AI-Generated Music</p>
+    </div>
 </header>
 
 <main class="container">
-    <section class="music-section">
-        <h2>Featured Music</h2>
-        <ul class="music-list" id="music-list"></ul>
-    </section>
+    <section class="music-section">
+        <h2>Featured Music</h2>
+        <ul class="music-list" id="music-list"></ul>
+    </section>
 </main>
 
 <footer class="footer">
-    <div class="footer-content">
-        <p>&copy; 2025 Honey Sandwich. All rights reserved.</p>
-        <p>For permissions, contact on Discord: 
-            <a href="https://discord.com/users/789872551731527690" target="_blank" rel="noopener" class="discord-link">
-                Discord
-            </a>
-        </p>
-    </div>
+    <div class="footer-content">
+        <p>&copy; 2025 Honey Sandwich. All rights reserved.</p>
+        <p>For permissions, contact on Discord: 
+            <a href="https://discord.com/users/789872551731527690" target="_blank" rel="noopener" class="discord-link">
+                Discord
+            </a>
+        </p>
+    </div>
 </footer>
 
 <script>
 async function loadSongs() {
-    try {
-        const res = await fetch('/songs.json');
-        const songs = await res.json();
-        const list = document.getElementById('music-list');
+    try {
+        const res = await fetch('/songs.json');
+        const songs = await res.json();
+        const list = document.getElementById('music-list');
 
-        songs.forEach(song => {
-            const li = document.createElement('li');
-            li.className = 'music-card';
+        songs.forEach(song => {
+            const li = document.createElement('li');
+            li.className = 'music-card';
 
-            // Tracks (if album)
-            const tracksHtml = song.tracks ? `
-                <div class="album-details">
-                    <span class="track-count">${song.tracks.length} tracks</span>
-                    <ul class="album-tracks">
-                        ${song.tracks.map((track,i) => `<li>${i+1}. ${track}</li>`).join('')}
-                    </ul>
-                </div>` : '';
+            const tracksHtml = song.tracks ? `
+                <div class="album-details">
+                    <span class="track-count">${song.tracks.length} tracks</span>
+                    <ul class="album-tracks">
+                        ${song.tracks.map((track,i) => `<li>${i+1}. ${track}</li>`).join('')}
+                    </ul>
+                </div>` : '';
 
-            // Music links
-            const icons = {
-                soundcloud: '🎵',
-                spotify: '🎧'
-            };
+            // Updated Music links generation
+            const icons = {
+                soundcloud: '<i class="fa-brands fa-soundcloud"></i>',
+                spotify: '<i class="fa-brands fa-spotify"></i>',
+                deezer: '<i class="fa-brands fa-deezer"></i>'
+            };
 
-            const linksHtml = song.links ? Object.entries(song.links)
-                .map(([key,url]) => `<a href="${url}" target="_blank" rel="noopener">${icons[key] || ''} ${key.charAt(0).toUpperCase()+key.slice(1)}</a>`)
-                .join('') : '';
+            const linksHtml = song.links ? Object.entries(song.links)
+                .map(([key, url]) => `<a href="${url}" target="_blank" rel="noopener" class="${key}">${icons[key] || ''}</a>`)
+                .join('') : '';
 
-            // Spotify Embed
-            const spotifyEmbedHtml = song.spotifyEmbed ? `
-                <iframe class="spotify-embed" src="${song.spotifyEmbed}" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-            ` : '';
+            const spotifyEmbedHtml = song.spotifyEmbed ? `
+                <iframe class="spotify-embed" src="${song.spotifyEmbed}" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+            ` : '';
 
-            li.innerHTML = `
-                <div class="music-card-header">
-                    ${song.cover ? `<img src="${song.cover}" alt="${song.title} cover" class="album-cover">` : ''}
-                    <div class="music-info">
-                        <h3>${song.title}</h3>
-                        <p class="artist">Honey Sandwich</p>
-                        ${song.release_date ? `<p class="release-date">Released: ${song.release_date}</p>` : ''}
-                    </div>
-                </div>
-
-                <div class="music-card-body">
-                    ${tracksHtml}
-                    <div class="music-links">${linksHtml}</div>
-                    ${spotifyEmbedHtml}
-                </div>
-            `;
-            list.appendChild(li);
-        });
-    } catch (err) {
-        console.error(err);
-        document.getElementById('music-list').innerHTML = '<p style="color:red;">Failed to load music.</p>';
-    }
+            li.innerHTML = `
+                <div class="music-card-header">
+                    ${song.cover ? `<img src="${song.cover}" alt="${song.title} cover" class="album-cover">` : ''}
+                    <div class="music-info">
+                        <h3>${song.title}</h3>
+                        <p class="artist">Honey Sandwich</p>
+                        ${song.release_date ? `<p class="release-date">Released: ${song.release_date}</p>` : ''}
+                    </div>
+                </div>
+                <div class="music-card-body">
+                    ${tracksHtml}
+                    <div class="music-links">${linksHtml}</div>
+                    ${spotifyEmbedHtml}
+                </div>
+            `;
+            list.appendChild(li);
+        });
+    } catch (err) {
+        console.error(err);
+        document.getElementById('music-list').innerHTML = '<p style="color:red;">Failed to load music.</p>';
+    }
 }
 
 loadSongs();
