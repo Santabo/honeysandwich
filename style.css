@@ -88,7 +88,7 @@ body {
     box-shadow: var(--shadow-dark), var(--shadow-light);
 }
 
-/* --- Card Header (Album Art & Info) --- */
+/* --- Card Header (Album Art) --- */
 .music-card-header {
     display: flex;
     flex-direction: column;
@@ -102,20 +102,20 @@ body {
     height: auto;
     max-width: 300px;
     border-radius: var(--border-radius-sm);
-    margin-bottom: 1.5rem;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 
-/* --- Card Body (Links & Details) --- */
+/* --- Card Body (Title, Links & Details) --- */
 .music-card-body {
     padding: 0 1.5rem 1.5rem;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    text-align: center; /* Center everything in the body */
 }
 
 .music-info { 
-    margin-bottom: 1rem; /* Added margin to push the buttons down */
+    margin: 1.5rem 0 1rem; /* Add top and bottom margin to the info block */
 }
 
 .music-info h3 {
@@ -229,32 +229,32 @@ body {
 
 /* --- Desktop Layout Adjustments --- */
 @media(min-width: 768px){
-    .music-card {
-        flex-direction: row;
-        align-items: stretch;
-    }
-    
-    .music-card-header {
-        flex: 0 0 40%;
-        max-width: 300px;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .music-info {
-        text-align: left;
-        margin-left: 0;
-    }
-    
-    .music-card-body {
-        padding: 1.5rem;
-    }
+    .music-card {
+        flex-direction: row;
+        align-items: stretch;
+    }
+    
+    .music-card-header {
+        flex: 0 0 40%;
+        max-width: 300px;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .music-info {
+        text-align: left;
+        margin-left: 0;
+    }
+    
+    .music-card-body {
+        padding: 1.5rem;
+    }
 
-    .music-links {
-        justify-content: flex-start;
-    }
+    .music-links {
+        justify-content: flex-start;
+    }
 
-    .album-cover {
-        margin-bottom: 1rem;
-    }
+    .album-cover {
+        margin-bottom: 1rem;
+    }
 }
