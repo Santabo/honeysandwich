@@ -7,15 +7,20 @@
     --text-light: #f0f0f0;
     --text-secondary: #a0a0a0;
     --accent: #EBA937;
+    --accent-light: #f3c46b;
     --btn-spotify: #1DB954;
     --btn-soundcloud: #ff5500;
     --btn-deezer: #ff0000;
-    --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 15px rgba(235, 169, 55, 0.4);
+    --shadow-dark: 0 6px 25px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 20px rgba(235, 169, 55, 0.4);
 }
 
 * {
     box-sizing: border-box;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -23,10 +28,10 @@ body {
     background: var(--bg-primary);
     color: var(--text-light);
     line-height: 1.6;
-    margin: 0;
-    padding: 0;
+    font-size: 16px;
 }
 
+/* --- Container --- */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -37,23 +42,23 @@ body {
 .hero-header {
     background: linear-gradient(135deg, #EBA937, #d4952d);
     color: #fff;
-    padding: 6rem 1rem;
+    padding: 6rem 1rem 4rem 1rem;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
     animation: fadeIn 1s ease-in-out;
 }
 
 .hero-header::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="p" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M0 0h50v50H0z" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p)"/></svg>') no-repeat;
-    opacity: 0.1;
+    opacity: 0.08;
     z-index: 1;
 }
 
@@ -68,16 +73,15 @@ body {
     font-weight: 700;
     letter-spacing: 5px;
     text-transform: uppercase;
-    margin: 0;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    margin-bottom: 0.5rem;
+    text-shadow: 3px 3px 15px rgba(0,0,0,0.6);
 }
 
 .hero-header p {
     font-size: clamp(1rem, 3vw, 1.5rem);
     font-weight: 500;
-    margin-top: 0.5rem;
     color: #fff;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 8px rgba(0,0,0,0.5);
 }
 
 /* --- Music Section --- */
@@ -86,47 +90,53 @@ body {
     color: var(--accent);
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     letter-spacing: 2px;
 }
 
+/* --- Music Cards --- */
 .music-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
     list-style: none;
     padding: 0;
 }
 
+@media(min-width: 768px) {
+    .music-list {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
 .music-card {
     background: var(--bg-card);
-    border-radius: 16px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 20px;
     box-shadow: var(--shadow-dark);
     display: flex;
     flex-direction: column;
-    text-align: center;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .music-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-10px);
     box-shadow: var(--shadow-dark), var(--shadow-glow);
 }
 
 .music-card-header {
-    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 2rem 1rem 1rem 1rem;
 }
 
 .album-cover {
     width: 180px;
     height: 180px;
-    border-radius: 12px;
+    border-radius: 16px;
     object-fit: cover;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     transition: transform 0.3s ease;
 }
 
@@ -135,52 +145,47 @@ body {
 }
 
 .music-info {
-    margin-top: 1rem;
     text-align: center;
+    margin-top: 1rem;
 }
 
 .music-info h3 {
     font-family: 'Bebas Neue', sans-serif;
-    margin: 0 0 0.5rem 0;
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    letter-spacing: 1.5px;
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
+    margin-bottom: 0.3rem;
     color: var(--text-light);
 }
 
-.music-info .artist, .music-info .release-date {
-    font-size: 0.9rem;
+.music-info .artist,
+.music-info .release-date {
+    font-size: 0.95rem;
     color: var(--text-secondary);
-    margin: 0;
 }
 
+/* --- Card Body --- */
 .music-card-body {
-    padding: 0 1.5rem 1.5rem;
+    padding: 1.5rem 1.5rem 2rem 1.5rem;
 }
 
+/* Tracks */
 .album-details {
     margin-top: 1rem;
 }
 
 .track-count {
     font-size: 0.9rem;
-    color: var(--text-secondary);
     font-style: italic;
-}
-
-.album-tracks {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    text-align: center;
+    color: var(--accent-light);
+    margin-bottom: 0.5rem;
 }
 
 .album-tracks li {
-    padding: 4px 0;
+    padding: 3px 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
 }
 
-/* --- Links and Buttons --- */
+/* --- Music Links --- */
 .music-links {
     display: flex;
     flex-wrap: wrap;
@@ -193,63 +198,53 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 20px;
+    padding: 12px 22px;
     border-radius: 50px;
     font-weight: 600;
-    text-decoration: none;
     font-size: 0.9rem;
+    text-decoration: none;
     color: var(--text-light);
     transition: all 0.3s ease;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.3);
 }
 
 .music-links a:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
+    transform: translateY(-2px) scale(1.02);
+    opacity: 0.95;
 }
 
 .btn-spotify { background: var(--btn-spotify); }
 .btn-soundcloud { background: var(--btn-soundcloud); }
 .btn-deezer { background: var(--btn-deezer); }
 
-.music-links i, .music-links svg {
-    font-size: 20px;
-}
-
-.music-links span {
-    display: none;
-}
-@media (min-width: 600px) {
-    .music-links span {
-        display: inline;
-    }
-}
-
 /* --- License Accordion --- */
 .license-container {
-    width: 100%;
-    padding: 1.5rem;
-    background: var(--bg-secondary);
-    border-top: 1px solid #333;
+    margin-top: 2rem;
 }
 
 .license-box {
-    border-radius: 8px;
-    overflow: hidden;
+    border-radius: 12px;
     border: 1px solid #333;
+    overflow: hidden;
     transition: all 0.3s ease;
+    background: var(--bg-secondary);
 }
 
 .license-summary {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    padding: 1rem 1.2rem;
     cursor: pointer;
     font-weight: 600;
+    font-size: 0.95rem;
+    background: #1a1a1a;
     color: var(--text-light);
-    font-size: 0.9rem;
-    background: #181818;
+    transition: background 0.3s ease;
+}
+
+.license-summary:hover {
+    background: #2a2a2a;
 }
 
 .license-summary i {
@@ -263,23 +258,22 @@ body {
 .license-details {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
-    padding: 0 1rem;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    padding: 0 1.2rem;
     font-size: 0.85rem;
     color: var(--text-secondary);
     line-height: 1.6;
 }
 
 .license-box.active .license-details {
-    max-height: 500px;
-    padding: 1rem;
-    transition: max-height 0.5s ease-in, padding 0.5s ease-in;
+    max-height: 1200px;
+    padding: 1rem 1.2rem;
 }
 
 .license-details ul {
     list-style: none;
-    padding-left: 0;
     margin: 10px 0;
+    padding-left: 0;
 }
 
 .license-details li {
@@ -312,10 +306,10 @@ body {
 /* --- Footer --- */
 .footer {
     background: var(--bg-secondary);
-    color: #555;
-    padding: 2rem 1rem;
+    color: #777;
+    padding: 3rem 1rem;
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     letter-spacing: 0.5px;
     border-top: 1px solid #222;
 }
@@ -326,8 +320,8 @@ body {
 
 .discord-link {
     color: #5865F2;
-    text-decoration: none;
     font-weight: 600;
+    text-decoration: none;
     transition: color 0.3s ease;
 }
 
@@ -335,28 +329,33 @@ body {
     color: #7289da;
 }
 
-/* --- Responsiveness --- */
-@media (min-width: 768px) {
+/* --- Responsive Cards --- */
+@media(min-width: 768px) {
     .music-card {
         flex-direction: row;
-        text-align: left;
+        align-items: flex-start;
     }
+
     .music-card-header {
         flex-direction: row;
         align-items: flex-start;
-        text-align: left;
-        padding-right: 0;
+        padding: 2rem;
     }
+
     .album-cover {
-        margin-right: 1.5rem;
+        margin-right: 2rem;
         margin-bottom: 0;
     }
+
     .music-info {
         margin-top: 0;
+        text-align: left;
     }
+
     .music-links {
         justify-content: flex-start;
     }
+
     .album-tracks {
         text-align: left;
     }
@@ -364,19 +363,16 @@ body {
 
 /* --- Animations --- */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-.music-card {
-    animation: fadeIn 0.8s ease-in-out backwards;
-}
+
 .music-card:nth-child(1) { animation-delay: 0.1s; }
 .music-card:nth-child(2) { animation-delay: 0.2s; }
 .music-card:nth-child(3) { animation-delay: 0.3s; }
-/* Add more for more cards */
+
+/* --- Images and Videos --- */
+img, video {
+    max-width: 100%;
+    height: auto;
+}
