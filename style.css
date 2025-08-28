@@ -106,10 +106,18 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 
+.music-info { 
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+}
+
 .music-info h3 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(1.8rem, 3vw, 2.2rem);
     letter-spacing: 1px;
+    word-wrap: break-word; 
+    line-height: 1.2;
 }
 
 .music-info .artist, .music-info .release-date {
@@ -146,10 +154,10 @@ body {
 }
 
 .album-tracks {
-    margin-left: -18px; /* Corrects list indentation */
+    margin-left: -18px;
 }
 
-/* --- Music Links (Fixed) --- */
+/* --- Music Links --- */
 .music-links {
     display: flex;
     flex-wrap: wrap;
@@ -184,7 +192,7 @@ body {
 
 .music-links a:active { transform: translateY(0); }
 
-/* Hide the text inside the links - this is not needed as the JS now only injects the icon, but it's good practice to keep for robustness. */
+/* Hide the text inside the links */
 .music-links a span {
     display: none;
 }
