@@ -1,345 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Honey Sandwich - AI Generated Music">
-<title>Honey Sandwich - AI Music</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-  :root {
-    --bg-primary: #0a0a0a;
-    --bg-card: #141414;
-    --bg-card-hover: #222;
-    --text-light: #f0f0f0;
-    --text-secondary: #999;
-    --accent: #EBA937;
-    --btn-spotify: #1DB954;
-    --btn-spotify-hover: #1ed760;
-    --btn-soundcloud: #ff5500;
-    --btn-soundcloud-hover: #ff7b33;
-    --btn-deezer: #ff0000;
-    --btn-deezer-hover: #ff4d4d;
-  }
-  body {
-    font-family: 'Montserrat', sans-serif;
-    background: var(--bg-primary);
-    color: var(--text-light);
-    text-align: center;
-    margin: 0;
-    padding: 0;
-  }
-  header {
-    background: linear-gradient(135deg, #EBA937, #d4952d);
-    padding: 2.5rem 1rem;
-    font-size: clamp(2rem, 6vw, 4rem);
-    font-weight: 800;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  }
-  .container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 20px;
-  }
-  h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    color: var(--accent);
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: 40px;
-    letter-spacing: 2px;
-  }
-  .music-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-    list-style: none;
-    padding: 0;
-  }
-  .music-card {
-    display: flex;
-    flex-direction: column;
-    padding: 25px;
-    background: var(--bg-card);
-    border-radius: 16px;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-  }
-  @media(min-width: 768px) {
-    .music-card {
-      flex-direction: row;
-      text-align: left;
-    }
-  }
-  .music-card:hover {
-    background: var(--bg-card-hover);
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-  }
-  .music-info-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-  @media(min-width: 768px) {
-    .music-info-container {
-      flex-direction: row;
-      align-items: flex-start;
-    }
-  }
-  .music-info-container img {
-    width: 150px;
-    height: 150px;
-    border-radius: 12px;
-    object-fit: cover;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    margin-bottom: 20px;
-    transition: transform 0.3s ease;
-  }
-  .music-card:hover .music-info-container img {
-    transform: scale(1.05);
-  }
-  @media(min-width: 768px) {
-    .music-info-container img {
-      margin-right: 30px;
-      margin-bottom: 0;
-    }
-  }
-  .text-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-  @media(min-width: 768px) {
-    .text-content {
-      align-items: flex-start;
-    }
-  }
-  .text-content h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    margin: 0 0 10px 0;
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
-    letter-spacing: 1.5px;
-  }
-  .album-tracks {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    text-align: center;
-    width: 100%;
-  }
-  @media(min-width: 768px) {
-    .album-tracks {
-      text-align: left;
-    }
-  }
-  .album-tracks li {
-    padding: 4px 0;
-  }
-  .music-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 20px;
-  }
-  @media(min-width: 768px) {
-    .music-links {
-      margin-top: 0;
-      justify-content: flex-end;
-      align-items: center;
-    }
-  }
-  .music-links a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 20px;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  }
-  .music-links a:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-  }
-  .music-links i, .music-links svg {
-    font-size: 20px;
-    color: var(--text-light);
-  }
-  .btn-spotify { background: var(--btn-spotify); color: var(--text-light); }
-  .btn-spotify:hover { background: var(--btn-spotify-hover); }
-  .btn-soundcloud { background: var(--btn-soundcloud); color: var(--text-light); }
-  .btn-soundcloud:hover { background: var(--btn-soundcloud-hover); }
-  .btn-deezer { background: var(--btn-deezer); color: var(--text-light); }
-  .btn-deezer:hover { background: var(--btn-deezer-hover); }
-  
-  .license-container {
-    width: 100%;
-    margin-top: 20px;
-  }
-  .license-box {
-    background: #1e1e1e;
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  .license-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    color: var(--text-light);
-    font-weight: 600;
-    text-align: left;
-  }
-  .license-summary span {
-    transition: transform 0.3s ease;
-  }
-  .license-summary span::after {
-    content: '▼';
-    font-size: 0.8rem;
-    margin-left: 10px;
-    transition: transform 0.3s ease;
-  }
-  .license-box.active .license-summary span::after {
-    transform: rotate(180deg);
-  }
-  .license-details {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out;
-    padding: 0 18px;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    text-align: left;
-  }
-  .license-box.active .license-details {
-    max-height: 500px; /* Adjust this value if content is taller */
-    padding-bottom: 18px;
-    transition: max-height 0.5s ease-in;
-  }
-  .license-details a {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 600;
-  }
-  .license-details a:hover {
-    text-decoration: underline;
-  }
-  
-  .copyright {
-    margin: 50px 0 20px;
-    font-size: 0.8rem;
-    color: #555;
-    letter-spacing: 1px;
-  }
-  @media(max-width: 768px) {
-    .music-card {
-      text-align: center;
-    }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Honey Sandwich - AI Generated Music">
+    <title>Honey Sandwich - AI Music</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Bebas+Neue&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>Honey Sandwich</header>
+<header class="hero-header">
+    <div class="header-content">
+        <h1>Honey Sandwich</h1>
+        <p>AI-Generated Music</p>
+    </div>
+</header>
 
-<div class="container">
-  <h2>Featured Music</h2>
-  <ul class="music-list" id="music-list"></ul>
-</div>
+<main class="container">
+    <section class="music-section">
+        <h2>Featured Music</h2>
+        <ul class="music-list" id="music-list">
+            </ul>
+    </section>
+</main>
 
-<div class="copyright">
-  © 2025 Honey Sandwich. For permissions, contact me on Discord:
-  <a href="https://discord.com/users/789872551731527690" target="_blank" rel="noopener">Discord Link</a>.
-</div>
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2025 Honey Sandwich. All rights reserved.</p>
+        <p>For permissions, contact on Discord: 
+            <a href="https://discord.com/users/789872551731527690" target="_blank" rel="noopener" class="discord-link">
+                <i class="fab fa-discord"></i> Discord Link
+            </a>
+        </p>
+    </div>
+</footer>
 
 <script>
-  async function loadSongs() {
-    try {
-      const res = await fetch('/songs.json');
-      const songs = await res.json();
-      const list = document.getElementById('music-list');
+    async function loadSongs() {
+        try {
+            const res = await fetch('/songs.json');
+            const songs = await res.json();
+            const list = document.getElementById('music-list');
 
-      const icons = {
-        soundcloud: `<i class="fa-brands fa-soundcloud"></i>`,
-        spotify: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.3 0 12c0 6.6 5.4 12 12 12s12-5.4 12-12c0-6.7-5.4-12-12-12zm5.5 17.3c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.8-9.5-1-.3.1-.7-.1-.8-.4s.1-.7.4-.8c4.1-.9 7.7-.6 10.5 1.1.3.2.4.6.3.9zm1.2-2.8c-.3.4-.8.5-1.2.3-2.9-1.7-7.4-2.2-10.9-1.2-.4.1-.9-.1-1-.5s.1-.9.5-1c3.9-1.1 8.9-.6 12.2 1.4.4.2.5.8.3 1.2zm.1-3c-3.5-2.1-9.3-2.3-12.6-1.3-.5.2-1.1-.1-1.3-.6-.2-.5.1-1.1.6-1.3 3.8-1.1 10.3-.8 14.4 1.5.5.3.6.9.3 1.4-.2.5-.8.6-1.4.3z"/></svg>`,
-        deezer: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h8v2H3v-2zm0 4h16v2H3v-2zm0 4h10v2H3v-2z"/></svg>`
-      };
-      
-      songs.forEach(song => {
-        const li = document.createElement('li');
-        li.className = 'music-card';
+            const icons = {
+                soundcloud: `<i class="fa-brands fa-soundcloud"></i>`,
+                spotify: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.3 0 12c0 6.6 5.4 12 12 12s12-5.4 12-12c0-6.7-5.4-12-12-12zm5.5 17.3c-.2.3-.6.4-.9.2-2.5-1.5-5.7-1.8-9.5-1-.3.1-.7-.1-.8-.4s.1-.7.4-.8c4.1-.9 7.7-.6 10.5 1.1.3.2.4.6.3.9zm1.2-2.8c-.3.4-.8.5-1.2.3-2.9-1.7-7.4-2.2-10.9-1.2-.4.1-.9-.1-1-.5s.1-.9.5-1c3.9-1.1 8.9-.6 12.2 1.4.4.2.5.8.3 1.2zm.1-3c-3.5-2.1-9.3-2.3-12.6-1.3-.5.2-1.1-.1-1.3-.6-.2-.5.1-1.1.6-1.3 3.8-1.1 10.3-.8 14.4 1.5.5.3.6.9.3 1.4-.2.5-.8.6-1.4.3z"/></svg>`,
+                deezer: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h8v2H3v-2zm0 4h16v2H3v-2zm0 4h10v2H3v-2z"/></svg>`
+            };
+            
+            songs.forEach(song => {
+                const li = document.createElement('li');
+                li.className = 'music-card';
 
-        const trackListHtml = song.type === 'album' && song.tracks ? `
-          <ul class="album-tracks">
-            ${song.tracks.map((track, index) => `<li>${index + 1}. ${track}</li>`).join('')}
-          </ul>` : '';
-        
-        const musicLinksHtml = Object.entries(song.links).filter(([, value]) => value).map(([key, value]) => `
-          <a href="${value}" target="_blank" rel="noopener" class="btn-${key}">
-            ${icons[key] || ''} ${key.charAt(0).toUpperCase() + key.slice(1)}
-          </a>
-        `).join('');
+                const trackListHtml = song.type === 'album' && song.tracks ? `
+                    <div class="album-details">
+                        <span class="track-count">${song.tracks.length} tracks</span>
+                        <ul class="album-tracks">
+                            ${song.tracks.map((track, index) => `<li>${index + 1}. ${track}</li>`).join('')}
+                        </ul>
+                    </div>` : '';
+                
+                const musicLinksHtml = Object.entries(song.links).filter(([, value]) => value).map(([key, value]) => `
+                    <a href="${value}" target="_blank" rel="noopener" class="btn-${key}">
+                        ${icons[key] || ''} <span>${key.charAt(0).toUpperCase() + key.slice(1)}</span>
+                    </a>
+                `).join('');
 
-        li.innerHTML = `
-          <div class="music-info-container">
-            ${song.cover ? `<img src="${song.cover}" alt="Cover art for ${song.title}">` : ''}
-            <div class="text-content">
-              <h3>${song.title}</h3>
-              ${trackListHtml}
-            </div>
-          </div>
-          
-          <div class="music-links">${musicLinksHtml}</div>
+                li.innerHTML = `
+                    <div class="music-card-header">
+                        ${song.cover ? `<img src="${song.cover}" alt="Cover art for ${song.title}" class="album-cover">` : ''}
+                        <div class="music-info">
+                            <h3>${song.title}</h3>
+                            <p class="artist">Honey Sandwich</p>
+                            <p class="release-date">Released: ${song.release_date || 'N/A'}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="music-card-body">
+                        ${trackListHtml}
+                        <div class="music-links">${musicLinksHtml}</div>
+                    </div>
 
-          <div class="license-container">
-            <div class="license-box">
-              <span class="license-summary">License Details<span></span></span>
-              <div class="license-details">
-                This is an original song by <strong>Honey Sandwich</strong>.<br><br>
-                Licensed under Honey Sandwich Permissions:<br>
-                – Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).<br>
-                – No derivative works are allowed unless given explicit permission.<br>
-                – Use for revenue purposes requires permission via Discord.<br><br>
-                <a href="license.html" target="_blank" rel="noopener">Full License Details</a>
-              </div>
-            </div>
-          </div>
-        `;
-        list.appendChild(li);
-      });
+                    <div class="license-container">
+                        <div class="license-box">
+                            <span class="license-summary">License Details<i class="fa-solid fa-chevron-down"></i></span>
+                            <div class="license-details">
+                                <p>This is an original song by <strong>Honey Sandwich</strong>.</p>
+                                <p>Licensed under Honey Sandwich Permissions:</p>
+                                <ul>
+                                    <li>Redistribution is not allowed outside official platforms (SoundCloud, Spotify, TikTok, Shazam, YouTube Music, and official Honey Sandwich sites).</li>
+                                    <li>No derivative works are allowed unless given explicit permission.</li>
+                                    <li>Use for revenue purposes requires permission via Discord.</li>
+                                </ul>
+                                <a href="license.html" target="_blank" rel="noopener" class="full-license-link">Full License Details</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(li);
+            });
 
-      // Add a listener to toggle the license box
-      list.querySelectorAll('.license-summary').forEach(summary => {
-        summary.addEventListener('click', () => {
-          summary.parentElement.classList.toggle('active');
-        });
-      });
+            // Add a listener to toggle the license box
+            list.querySelectorAll('.license-summary').forEach(summary => {
+                summary.addEventListener('click', () => {
+                    summary.closest('.license-box').classList.toggle('active');
+                });
+            });
 
-    } catch (err) {
-      console.error("Error loading songs:", err);
+        } catch (err) {
+            console.error("Error loading songs:", err);
+            document.getElementById('music-list').innerHTML = '<p class="error-message">Failed to load music. Please try again later.</p>';
+        }
     }
-  }
 
-  loadSongs();
+    loadSongs();
 </script>
 
 </body>
