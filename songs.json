@@ -5,7 +5,10 @@
         "links": {
             "soundcloud": "https://soundcloud.com/honeysandwich/together-forever",
             "spotify": "https://open.spotify.com/track/6lAzkmvTPBcZjQNvKKTIbP"
-        }
+        },
+        "tracks": [
+            "Together, Forever"
+        ]
     },
     {
         "title": "Hoshino Dreaming",
@@ -13,14 +16,20 @@
         "links": {
             "soundcloud": "https://soundcloud.com/honeysandwich/hoshino-dreaming",
             "spotify": "https://open.spotify.com/track/2E7ajBRMHQNuJgGnzsCAJQ"
-        }
+        },
+        "tracks": [
+            "Hoshino Dreaming"
+        ]
     },
     {
         "title": "Soar of the Wren",
         "cover": "https://iili.io/KHDQnTX.jpg",
         "links": {
             "spotify": "https://open.spotify.com/track/4tSOs76MVM9e3qCtc4BtjD"
-        }
+        },
+        "tracks": [
+            "Soar of the Wren"
+        ]
     },
     {
         "type": "album",
