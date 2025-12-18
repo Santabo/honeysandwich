@@ -32,6 +32,7 @@
             --brand-spotify: #1DB954;
             --brand-soundcloud: #ff5500;
             --brand-deezer: #a238ff;
+            --brand-iheart: #C6002B;
             --brand-discord: #5865F2;
 
             /* UI Elements */
@@ -261,6 +262,8 @@
         .card-visual {
             position: relative;
             overflow: hidden;
+            display: block; /* Ensures <a> tag fills space correctly */
+            cursor: pointer;
         }
 
         .album-cover {
@@ -294,7 +297,7 @@
             border: 2px solid var(--accent);
             transition: var(--transition);
             opacity: 0;
-            pointer-events: none;
+            pointer-events: none; /* Allows click to pass through to the <a> tag */
         }
 
         .music-card:hover .card-visual::after {
@@ -408,6 +411,9 @@
         
         .btn-deezer { background-color: var(--brand-deezer); }
         .btn-deezer:hover { background-color: #b966ff; box-shadow: 0 5px 15px rgba(162, 56, 255, 0.4); transform: translateY(-2px); }
+
+        .btn-iheart { background-color: var(--brand-iheart); }
+        .btn-iheart:hover { background-color: #e60032; box-shadow: 0 5px 15px rgba(198, 0, 43, 0.4); transform: translateY(-2px); }
 
         /* --- License Section Styles --- */
         .license-content {
@@ -583,6 +589,50 @@
     // --- Data (Embedded for Single File Portability) ---
     const songsData = [
         {
+            "title": "Superfast Pufferfish",
+            "type": "Single",
+            "cover": "https://s3.amazonaws.com/gather.fandalism.com/800x800%2D10186976%2D%2DD6DF7FD7%2D511A%2D4C59%2D8C2D9BB2DA1528E1%2D%2D0%2D%2D4521591%2D%2Dezgif78e3fced8eae89%2Ejpg",
+            "links": {
+                "spotify": "https://open.spotify.com/album/3hWKFyR8uS0Z88Z1jsMTiX",
+                "deezer": "https://www.deezer.com/album/838130332",
+                "iheart": "https://www.iheart.com/artist/id-47831608/albums/id-355300793"
+            },
+            "tracks": ["Superfast Pufferfish"]
+        },
+        {
+            "title": "Shimmerheart",
+            "type": "Single",
+            "cover": "https://s3.amazonaws.com/gather.fandalism.com/800x800%2D10186976%2D%2D99722FD9%2D19DF%2D475D%2D93F493A09A8AF0FA%2D%2D0%2D%2D8180465%2D%2D1000113823%2Ejpg",
+            "links": {
+                "spotify": "https://open.spotify.com/album/1lxwVGOGX8Bst6gVCdpxPV",
+                "deezer": "https://www.deezer.com/album/813305701",
+                "iheart": "https://www.iheart.com/artist/id-47831608/albums/id-347573793"
+            },
+            "tracks": ["Shimmerheart"]
+        },
+        {
+            "title": "Watermelon Smoothie",
+            "type": "Single",
+            "cover": "https://s3.amazonaws.com/gather.fandalism.com/800x800%2D10186976%2D%2D8A1EBFD6%2DFB5D%2D4622%2DA902A7326E875E57%2D%2D0%2D%2D7347066%2D%2DWatermelonSmoothie%2Ejpg",
+            "links": {
+                "spotify": "https://open.spotify.com/album/0DGsHLX1DOGssjWKc9WcrK",
+                "deezer": "https://www.deezer.com/album/835067652",
+                "iheart": "https://www.iheart.com/artist/id-47831608/albums/id-354420621"
+            },
+            "tracks": ["Watermelon Smoothie"]
+        },
+        {
+            "title": "Velvet Rails",
+            "type": "Single",
+            "cover": "https://s3.amazonaws.com/gather.fandalism.com/800x800%2D10186976%2D%2D454A6992%2D88F4%2D4C8F%2DB3A0EE36A123086B%2D%2D0%2D%2D2685411%2D%2Dupscalemediatransformed%2Ejpg",
+            "links": {
+                "spotify": "https://open.spotify.com/album/2QiZgmLU0IZmCUwi6p6OOp",
+                "deezer": "https://www.deezer.com/album/844823522",
+                "iheart": "https://www.iheart.com/artist/id-47831608/albums/id-357423126"
+            },
+            "tracks": ["Velvet Rails"]
+        },
+        {
             "title": "Together, Forever",
             "type": "Single",
             "cover": "https://i.ibb.co/X1WQmYY/artworks-2gh-ZVf-CTFHIc-La8c-wa-M9-FQ-t3000x3000.jpg",
@@ -592,17 +642,6 @@
                 "deezer": "https://link.deezer.com/s/30T8opu4m2senoDIz4zA2"
             },
             "tracks": ["Together, Forever"]
-        },
-        {
-            "title": "Hoshino Dreaming",
-            "type": "Single",
-            "cover": "https://i.ibb.co/q3txd9Rz/artworks-0vytm-Nvg-KLID6-Ksh-Rq-Eq2g-t3000x3000.jpg",
-            "links": {
-                "soundcloud": "https://soundcloud.com/honeysandwich/hoshino-dreaming",
-                "spotify": "https://open.spotify.com/track/2E7ajBRMHQNuJgGnzsCAJQ",
-                "deezer": "https://link.deezer.com/s/30T8pAMAKk3Hnhm27C6pW"
-            },
-            "tracks": ["Hoshino Dreaming"]
         },
         {
             "title": "Soar of the Wren",
@@ -692,15 +731,28 @@
                 if (song.links.deezer) {
                     buttonsHtml += `<a href="${song.links.deezer}" target="_blank" class="btn-music btn-deezer"><i class="fa-brands fa-deezer"></i><span>Deezer</span></a>`;
                 }
+                if (song.links.iheart) {
+                    buttonsHtml += `<a href="${song.links.iheart}" target="_blank" class="btn-music btn-iheart"><i class="fa-solid fa-heart"></i><span>iHeart</span></a>`;
+                }
             }
+
+            // Determine primary link (Spotify > SoundCloud > Deezer > iHeart)
+            let primaryLink = null;
+            if (song.links) {
+                primaryLink = song.links.spotify || song.links.soundcloud || song.links.deezer || song.links.iheart;
+            }
+
+            // Define HTML tag type (Anchor if link exists, Div otherwise)
+            const visualTag = primaryLink ? 'a' : 'div';
+            const visualAttrs = primaryLink ? `href="${primaryLink}" target="_blank"` : '';
 
             // Fallback image if cover is missing
             const coverImg = song.cover || 'https://via.placeholder.com/300x300/1f1f1f/EBA937?text=No+Cover';
 
             article.innerHTML = `
-                <div class="card-visual">
+                <${visualTag} ${visualAttrs} class="card-visual">
                     <img src="${coverImg}" alt="${song.title} Cover Art" class="album-cover" loading="lazy">
-                </div>
+                </${visualTag}>
                 <div class="card-content">
                     <div class="music-header">
                         <h3 class="music-title">${song.title}</h3>
