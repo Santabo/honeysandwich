@@ -3,100 +3,729 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Honey Sandwich - AI Generated Music">
+    <meta name="description" content="Honey Sandwich - AI Generated Music Portfolio">
     <title>Honey Sandwich - AI Music</title>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Bebas+Neue&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Bebas+Neue&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* --- CSS Variables --- */
+        :root {
+            --bg-primary: #0b0b0b;
+            --bg-secondary: #121212;
+            --bg-card: #1f1f1f;
+            --text-primary: #f0f0f0;
+            --text-secondary: #aaaaaa;
+            --text-muted: #666666;
+            
+            /* Brand Colors */
+            --accent: #EBA937;
+            --accent-glow: rgba(235, 169, 55, 0.4);
+            --accent-gradient: linear-gradient(135deg, #EBA937 0%, #d4952d 100%);
+            
+            --brand-spotify: #1DB954;
+            --brand-soundcloud: #ff5500;
+            --brand-deezer: #a238ff;
+            --brand-discord: #5865F2;
+
+            /* UI Elements */
+            --shadow-card: 0 10px 30px rgba(0,0,0,0.5);
+            --shadow-hover: 0 15px 40px rgba(235, 169, 55, 0.15);
+            --border-radius-lg: 16px;
+            --border-radius-sm: 8px;
+            --nav-height: 70px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- Reset & Base --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: var(--nav-height); /* Space for fixed nav */
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+
+        /* --- Navigation --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: rgba(11, 11, 11, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 0;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section --- */
+        .hero-header {
+            background: radial-gradient(circle at center, #2a2a2a 0%, var(--bg-primary) 100%);
+            padding: 4rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative Honeycomb Background Effect (CSS only) */
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(var(--accent-glow) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(235, 169, 55, 0.2);
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .header-content p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* --- Main Container --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* --- Page Sections (SPA switching) --- */
+        .page-section {
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--accent);
+            padding-left: 15px;
+            line-height: 1;
+        }
+
+        /* --- Music Grid --- */
+        .music-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: 1fr;
+        }
+
+        /* --- Music Card --- */
+        .music-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .music-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(235, 169, 55, 0.3);
+        }
+
+        /* Card Layout for Desktop */
+        @media(min-width: 850px){
+            .music-card {
+                flex-direction: row;
+                height: 320px; /* Fixed height for consistency */
+            }
+            
+            .card-visual {
+                flex: 0 0 320px; /* Square cover */
+                position: relative;
+            }
+
+            .card-content {
+                flex: 1;
+                overflow-y: auto; /* Allow scrolling content if list is long */
+                padding: 2rem;
+            }
+        }
+
+        /* Card Visuals */
+        .card-visual {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .album-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .music-card:hover .album-cover {
+            transform: scale(1.05);
+        }
+
+        /* Overlay on cover (optional play hint) */
+        .card-visual::after {
+            content: '\f04b'; /* FontAwesome Play Icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(0,0,0,0.6);
+            color: var(--accent);
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            border: 2px solid var(--accent);
+            transition: var(--transition);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .music-card:hover .card-visual::after {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        /* Card Content */
+        .card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .music-header {
+            margin-bottom: 1rem;
+        }
+
+        .music-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .music-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .music-meta span i {
+            margin-right: 5px;
+            color: var(--accent);
+        }
+
+        /* Track List */
+        .track-list-container {
+            background: rgba(0,0,0,0.2);
+            border-radius: var(--border-radius-sm);
+            padding: 1rem;
+            margin: 1rem 0;
+            flex-grow: 1;
+        }
+
+        .track-count {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            display: block;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 5px;
+        }
+
+        .track-list {
+            margin: 0;
+            padding: 0;
+        }
+
+        .track-list li {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .track-list li::before {
+            content: '\f001'; /* Music note */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-right: 10px;
+        }
+
+        /* Links */
+        .music-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: auto;
+            flex-wrap: wrap;
+        }
+
+        .btn-music {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 44px;
+            padding: 0 20px;
+            border-radius: 22px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #fff;
+            transition: var(--transition);
+        }
+
+        .btn-music i { margin-right: 8px; font-size: 1.1rem; }
+        
+        .btn-spotify { background-color: var(--brand-spotify); }
+        .btn-spotify:hover { background-color: #1ed760; box-shadow: 0 5px 15px rgba(29, 185, 84, 0.4); transform: translateY(-2px); }
+        
+        .btn-soundcloud { background-color: var(--brand-soundcloud); }
+        .btn-soundcloud:hover { background-color: #ff7733; box-shadow: 0 5px 15px rgba(255, 85, 0, 0.4); transform: translateY(-2px); }
+        
+        .btn-deezer { background-color: var(--brand-deezer); }
+        .btn-deezer:hover { background-color: #b966ff; box-shadow: 0 5px 15px rgba(162, 56, 255, 0.4); transform: translateY(-2px); }
+
+        /* --- License Section Styles --- */
+        .license-content {
+            background: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            padding: 3rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .license-block { margin-bottom: 2.5rem; }
+        
+        .license-block h3 {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .license-block h3 i { margin-right: 10px; }
+
+        .license-block p { color: var(--text-secondary); margin-bottom: 1rem; }
+        
+        .license-list { margin-left: 20px; margin-bottom: 1rem; }
+        .license-list li { margin-bottom: 0.5rem; position: relative; padding-left: 15px; color: var(--text-secondary); }
+        .license-list li::before {
+            content: '•';
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .highlight-link {
+            color: var(--accent);
+            font-weight: 600;
+            border-bottom: 1px dotted var(--accent);
+        }
+        .highlight-link:hover { color: #fff; border-bottom-style: solid; }
+
+        .contact-box {
+            background: rgba(88, 101, 242, 0.1);
+            border: 1px solid rgba(88, 101, 242, 0.3);
+            padding: 1.5rem;
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+        .contact-box i { font-size: 2rem; color: var(--brand-discord); }
+        
+        /* --- Footer --- */
+        .footer {
+            background: #050505;
+            padding: 3rem 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .footer p { margin-bottom: 10px; }
+        .footer a { color: var(--brand-discord); font-weight: 600; }
+        .footer a:hover { text-decoration: underline; }
+
+        /* --- Utilities --- */
+        .hidden { display: none; }
+        
+        /* Mobile Specifics */
+        @media(max-width: 600px) {
+            .hero-header h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2.5rem; }
+            .license-content { padding: 1.5rem; }
+            .btn-music span { display: none; } /* Hide text, show icons only on small screens */
+            .btn-music { padding: 0; width: 44px; border-radius: 50%; }
+            .btn-music i { margin: 0; }
+        }
+    </style>
 </head>
 <body>
 
-<header class="hero-header">
-    <div class="header-content">
-        <h1>Honey Sandwich</h1>
-        <p>AI-Generated Music</p>
-    </div>
-</header>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">Honey Sandwich</div>
+            <div class="nav-links">
+                <div class="nav-link active" onclick="switchTab('home')">Music</div>
+                <div class="nav-link" onclick="switchTab('license')">License</div>
+            </div>
+        </div>
+    </nav>
 
-<main class="container">
-    <section class="music-section">
-        <h2>Featured Music</h2>
-        <ul class="music-list" id="music-list"></ul>
-    </section>
-</main>
+    <!-- Header -->
+    <header class="hero-header">
+        <div class="header-content fade-in">
+            <h1>Honey Sandwich</h1>
+            <p>AI-Generated Music Portfolio</p>
+        </div>
+    </header>
 
-<footer class="footer">
-    <div class="footer-content">
-        <p>&copy; 2025 Honey Sandwich. All rights reserved.</p>
-        <p>For permissions, contact on Discord: 
-            <a href="https://discord.com/users/789872551731527690" target="_blank" rel="noopener" class="discord-link">
-                Discord
-            </a>
-        </p>
-    </div>
-</footer>
+    <main class="container">
+        
+        <!-- MUSIC SECTION -->
+        <section id="home-section" class="page-section active">
+            <h2 class="section-title">Latest Releases</h2>
+            <div class="music-grid" id="music-grid">
+                <!-- Javascript will populate this -->
+            </div>
+        </section>
+
+        <!-- LICENSE SECTION -->
+        <section id="license-section" class="page-section">
+            <h2 class="section-title">Licensing & Terms</h2>
+            
+            <div class="license-content">
+                <div class="license-block">
+                    <h3><i class="fa-solid fa-scale-balanced"></i> Summary</h3>
+                    <p>
+                        This license applies to all <strong>Honey Sandwich original songs</strong> unless otherwise noted.  
+                        Covers of other artists (e.g., EspiDev) are under their respective licenses such as 
+                        <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener" class="highlight-link">Creative Commons Attribution 3.0</a>.
+                    </p>
+                </div>
+
+                <div class="license-block">
+                    <h3><i class="fa-solid fa-lock"></i> Permissions & Restrictions</h3>
+                    <ul class="license-list">
+                        <li><strong>Redistribution:</strong> Not allowed outside official platforms (SoundCloud, Spotify, TikTok, YouTube Music).</li>
+                        <li><strong>Derivatives:</strong> You may not create remixes, edits, or derivative works without explicit permission.</li>
+                        <li><strong>Commercial Use:</strong> Use of these songs for commercial or monetized purposes requires prior permission.</li>
+                    </ul>
+                </div>
+
+                <div class="license-block">
+                    <h3><i class="fa-solid fa-envelope"></i> Contact</h3>
+                    <p>For permissions, requests, or business inquiries:</p>
+                    <a href="https://discord.com/users/789872551731527690" target="_blank" rel="noopener" style="text-decoration: none;">
+                        <div class="contact-box">
+                            <i class="fa-brands fa-discord"></i>
+                            <div>
+                                <strong style="color: #fff; display:block;">Discord</strong>
+                                <span style="font-size: 0.9rem; color: var(--text-secondary);">Message Honey Sandwich directly</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="license-block">
+                    <h3><i class="fa-solid fa-triangle-exclamation"></i> Legal Notice</h3>
+                    <p style="font-size: 0.9rem; font-style: italic;">
+                        Any distribution or monetization of Honey Sandwich originals outside the official channels is
+                        <strong>unauthorized and unlicensed</strong>. Violations may result in takedown requests.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Honey Sandwich. All rights reserved.</p>
+            <p>
+                <a href="https://discord.com/users/789872551731527690" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-discord"></i> Contact on Discord
+                </a>
+            </p>
+        </div>
+    </footer>
 
 <script>
-async function loadSongs() {
-    try {
-        const res = await fetch('/songs.json');
-        const songs = await res.json();
-        const list = document.getElementById('music-list');
+    // --- Data (Embedded for Single File Portability) ---
+    const songsData = [
+        {
+            "title": "Together, Forever",
+            "type": "Single",
+            "cover": "https://i.ibb.co/X1WQmYY/artworks-2gh-ZVf-CTFHIc-La8c-wa-M9-FQ-t3000x3000.jpg",
+            "links": {
+                "soundcloud": "https://soundcloud.com/honeysandwich/together-forever",
+                "spotify": "https://open.spotify.com/track/6lAzkmvTPBcZjQNvKKTIbP",
+                "deezer": "https://link.deezer.com/s/30T8opu4m2senoDIz4zA2"
+            },
+            "tracks": ["Together, Forever"]
+        },
+        {
+            "title": "Hoshino Dreaming",
+            "type": "Single",
+            "cover": "https://i.ibb.co/q3txd9Rz/artworks-0vytm-Nvg-KLID6-Ksh-Rq-Eq2g-t3000x3000.jpg",
+            "links": {
+                "soundcloud": "https://soundcloud.com/honeysandwich/hoshino-dreaming",
+                "spotify": "https://open.spotify.com/track/2E7ajBRMHQNuJgGnzsCAJQ",
+                "deezer": "https://link.deezer.com/s/30T8pAMAKk3Hnhm27C6pW"
+            },
+            "tracks": ["Hoshino Dreaming"]
+        },
+        {
+            "title": "Soar of the Wren",
+            "type": "Single",
+            "cover": "https://iili.io/KHDQnTX.jpg",
+            "links": {
+                "spotify": "https://open.spotify.com/track/4tSOs76MVM9e3qCtc4BtjD",
+                "deezer": "https://link.deezer.com/s/30T8p0aLJDF7wE9t6vYTs"
+            },
+            "tracks": ["Soar of the Wren"]
+        },
+        {
+            "title": "The Cacophony of Captain Duckfoot",
+            "type": "Album",
+            "cover": "https://iili.io/KHpAvsI.jpg",
+            "links": {
+                "spotify": "https://open.spotify.com/album/4iUvT7GoRm3pZzfac3hlwt?si=vEFlyoJGTAi6rkiU06Aq5A",
+                "deezer": "https://link.deezer.com/s/30T8nrPzJnZXJ40ljulkd"
+            },
+            "tracks": [
+                "The Cacophony of Captain Duckfoot",
+                "Tempest of the Northern Tide",
+                "Secrets of the Sunlit Sea",
+                "The Dread of the Black Depths",
+                "Raiders of the Eastern Wind",
+                "Sirens of the Shimmering Blue",
+                "The Final Horizon"
+            ]
+        }
+    ];
 
-        songs.forEach(song => {
-            const li = document.createElement('li');
-            li.className = 'music-card';
+    // --- Tab Switching Logic ---
+    function switchTab(tabName) {
+        // Update Nav Active State
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        // Find the link that was clicked (based on logic in onclick) or manual match
+        const links = document.querySelectorAll('.nav-link');
+        if(tabName === 'home') links[0].classList.add('active');
+        if(tabName === 'license') links[1].classList.add('active');
 
-            const tracksHtml = song.tracks ? `
-                <div class="album-details">
-                    <span class="track-count">${song.tracks.length} tracks</span>
-                    <ul class="album-tracks">
-                        ${song.tracks.map((track,i) => `<li>${i+1}. ${track}</li>`).join('')}
-                    </ul>
-                </div>` : '';
+        // Hide all sections
+        document.querySelectorAll('.page-section').forEach(section => {
+            section.classList.remove('active');
+        });
 
-            // Updated Music links generation
-            const icons = {
-                soundcloud: '<i class="fa-brands fa-soundcloud"></i>',
-                spotify: '<i class="fa-brands fa-spotify"></i>',
-                deezer: '<i class="fa-brands fa-deezer"></i></i>'
-            };
+        // Show target section
+        document.getElementById(`${tabName}-section`).classList.add('active');
+        
+        // Scroll to top
+        window.scrollTo(0, 0);
+    }
 
-            const linksHtml = song.links ? Object.entries(song.links)
-                .map(([key, url]) => `<a href="${url}" target="_blank" rel="noopener" class="${key}">${icons[key] || ''}</a>`)
-                .join('') : '';
+    // --- Render Music Grid ---
+    function renderMusic() {
+        const grid = document.getElementById('music-grid');
+        grid.innerHTML = '';
 
-            const spotifyEmbedHtml = song.spotifyEmbed ? `
-                <iframe class="spotify-embed" src="${song.spotifyEmbed}" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-            ` : '';
+        songsData.forEach((song, index) => {
+            const article = document.createElement('article');
+            article.className = 'music-card fade-in';
+            article.style.animationDelay = `${index * 0.1}s`; // Stagger animation
 
-            li.innerHTML = `
-                <div class="music-card-header">
-                    ${song.cover ? `<img src="${song.cover}" alt="${song.title} cover" class="album-cover">` : ''}
-                    <div class="music-info">
-                        <h3>${song.title}</h3>
-                        <p class="artist">Honey Sandwich</p>
-                        ${song.release_date ? `<p class="release-date">Released: ${song.release_date}</p>` : ''}
+            // Generate Track List HTML
+            let trackListHtml = '';
+            if (song.tracks && song.tracks.length > 0) {
+                const tracks = song.tracks.map(t => `<li>${t}</li>`).join('');
+                trackListHtml = `
+                    <div class="track-list-container">
+                        <span class="track-count">${song.type || 'Release'} • ${song.tracks.length} Track${song.tracks.length > 1 ? 's' : ''}</span>
+                        <ul class="track-list">${tracks}</ul>
+                    </div>
+                `;
+            }
+
+            // Generate Buttons HTML
+            let buttonsHtml = '';
+            if (song.links) {
+                if (song.links.spotify) {
+                    buttonsHtml += `<a href="${song.links.spotify}" target="_blank" class="btn-music btn-spotify"><i class="fa-brands fa-spotify"></i><span>Spotify</span></a>`;
+                }
+                if (song.links.soundcloud) {
+                    buttonsHtml += `<a href="${song.links.soundcloud}" target="_blank" class="btn-music btn-soundcloud"><i class="fa-brands fa-soundcloud"></i><span>SoundCloud</span></a>`;
+                }
+                if (song.links.deezer) {
+                    buttonsHtml += `<a href="${song.links.deezer}" target="_blank" class="btn-music btn-deezer"><i class="fa-brands fa-deezer"></i><span>Deezer</span></a>`;
+                }
+            }
+
+            // Fallback image if cover is missing
+            const coverImg = song.cover || 'https://via.placeholder.com/300x300/1f1f1f/EBA937?text=No+Cover';
+
+            article.innerHTML = `
+                <div class="card-visual">
+                    <img src="${coverImg}" alt="${song.title} Cover Art" class="album-cover" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <div class="music-header">
+                        <h3 class="music-title">${song.title}</h3>
+                        <div class="music-meta">
+                            <span><i class="fa-solid fa-music"></i> ${song.type || 'Single'}</span>
+                            <span><i class="fa-solid fa-calendar"></i> 2024</span>
+                        </div>
+                    </div>
+                    
+                    ${trackListHtml}
+                    
+                    <div class="music-actions">
+                        ${buttonsHtml}
                     </div>
                 </div>
-                <div class="music-card-body">
-                    ${tracksHtml}
-                    <div class="music-links">${linksHtml}</div>
-                    ${spotifyEmbedHtml}
-                </div>
             `;
-            list.appendChild(li);
+            grid.appendChild(article);
         });
-    } catch (err) {
-        console.error(err);
-        document.getElementById('music-list').innerHTML = '<p style="color:red;">Failed to load music.</p>';
     }
-}
 
-loadSongs();
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        renderMusic();
+    });
+
 </script>
-
 </body>
 </html>
